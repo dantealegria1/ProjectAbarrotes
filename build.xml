@@ -9,7 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="ProjectAbarrotes" default="default" basedir=".">
     <description>Builds, tests, and runs the project ProjectAbarrotes.</description>
-    <import file="nbproject/build-impl.xml"/>
+
     <property name="src.dir" value="src"/>
 
     <!--
