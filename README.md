@@ -1,5 +1,3 @@
----
-
 # ProjectAbarrotes
 
 ## Descripción
