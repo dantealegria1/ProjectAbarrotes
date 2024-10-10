@@ -3,7 +3,7 @@
         *** GENERATED FROM project.xml - DO NOT EDIT  ***
         ***         EDIT ../build.xml INSTEAD         ***
 
-        For the purpose of easier reading the script
+        For the purpose of easier reading the scriptÏ
         is divided into following sections:
         - initialization
         - compilation
@@ -19,6 +19,7 @@
         -->
 <project xmlns:webproject1="http://www.netbeans.org/ns/web-project/1" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:webproject3="http://www.netbeans.org/ns/web-project/3" basedir=".." default="default" name="ProjectAbarrotes-impl">
     <import file="ant-deploy.xml"/>
+    <property name="src.dir" value="src"/>
     <fail message="Please build using Ant 1.7.1 or higher.">
         <condition>
             <not>
