@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/start-1.0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsf-facelets-1.1.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/primefaces-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

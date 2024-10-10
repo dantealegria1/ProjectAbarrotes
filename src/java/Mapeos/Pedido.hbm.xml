@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Pedido" table="pedido" catalog="abarrotes" optimistic-lock="version">
+        <id name="idPedido" type="java.lang.Integer">
+            <column name="id_pedido" />
+            <generator class="foreign">
+                <param name="property">cliente</param>
+            </generator>
+        </id>
+        <one-to-one name="cliente" class="Mapeos.Cliente" constrained="true"></one-to-one>
+        <property name="fecha" type="string">
+            <column name="Fecha" length="50" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="Observaciones" length="250" not-null="true" />
+        </property>
+        <property name="edoPedido" type="string">
+            <column name="Edo_pedido" length="150" />
+        </property>
+        <property name="idCliente" type="int">
+            <column name="id_cliente" not-null="true" />
+        </property>
+        <one-to-one name="paquete" class="Mapeos.Paquete"></one-to-one>
+        <one-to-one name="inventario" class="Mapeos.Inventario"></one-to-one>
+    </class>
+</hibernate-mapping>

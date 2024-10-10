@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/abarrotes?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <mapping resource="Mapeos/Empleado.hbm.xml"/>
+    <mapping resource="Mapeos/Producto.hbm.xml"/>
+    <mapping resource="Mapeos/Empresa.hbm.xml"/>
+    <mapping resource="Mapeos/Cliente.hbm.xml"/>
+    <mapping resource="Mapeos/Paquete.hbm.xml"/>
+    <mapping resource="Mapeos/Proveedor.hbm.xml"/>
+    <mapping resource="Mapeos/Pedido.hbm.xml"/>
+    <mapping resource="Mapeos/Inventario.hbm.xml"/>
+    <mapping resource="Mapeos/Estado.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Proveedor" table="proveedor" catalog="abarrotes" optimistic-lock="version">
+        <id name="idProveedor" type="java.lang.Integer">
+            <column name="id_proveedor" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreProveedor" type="string">
+            <column name="Nombre_proveedor" length="250" />
+        </property>
+        <property name="apellPatProveedor" type="string">
+            <column name="Apell_pat_proveedor" length="250" />
+        </property>
+        <property name="apellMatProveedor" type="string">
+            <column name="Apell_mat_proveedor" length="250" />
+        </property>
+        <property name="empresa" type="string">
+            <column name="empresa" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

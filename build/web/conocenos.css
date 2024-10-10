@@ -1,0 +1,19 @@
+td {color: #31333B;
+font-family:arial,helvetica,sans-serif;
+font-weight:normal;
+font-size:11px;
+}
+.title1 {
+color:#9bbf3b;font-family:arial, helvetica, sans-serif;font-weight:bold;font-size:13px;
+}
+.title2 {
+color:#e3bd34;font-family:arial,helvetica,sans-serif;font-weight:bold;font-size:11px;
+}
+
+#holder { position: absolute; top: 0; left: 0;}
+#copy {clear: both;}
+html, body, #holder { min-height: 100%; width: 100%; height: 100%;}
+html>body, html>body #holder { height: auto;}
+#free-flash-header a:hover {color:#cdd2d7;text-decoration:none}
+#resol {text-align:left;font-family:Verdana, Arial, Helvetica, sans-serif;position:fixed;padding-left:10px;width:290px;top:0px;left:1280px;margin:0 auto;background:#bfc6d9;} #resol h1 {background:none;font-size:1.2em;letter-spacing:10px;padding:0px;margin:0px;border: 0px;} #resol h2 {font-size:0.6em;letter-spacing:3px;padding:0px;margin:0px;background:none;}
+

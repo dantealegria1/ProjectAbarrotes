@@ -1,0 +1,159 @@
+#contenedor{
+	margin: auto;
+	width: 910px;
+}
+
+#titulo{
+    float:center;
+    alignment-adjust: center;
+}
+#cabecera{
+	width: 100%;
+	padding: 0.5em;
+	float: right;
+	background-position: center;
+	color: #FF7;
+}
+
+#Inicio{
+	width: 250px;
+	float: right;
+	clear: none;
+	height: 100px;
+	overflow: visible;
+	
+}
+
+
+#menu{
+	width: 100%;
+	clear: both;
+	height: 30px;
+	border: 2px solid #FAF;
+	float: right;
+	padding: 0.5em;
+	background-color: #C7D633;
+}
+
+#abarrotes{
+	clear: none;
+	float: left;
+	width: 300px;
+	height: 100px;
+        color: blue;
+}
+
+#lateralizquierdo{
+	float: left;
+	width: 300px;
+	clear: none;
+	margin-right: 5px;
+	background-repeat: repeat-y;
+}
+
+#contacto{
+    float: left;
+	width: 300px;
+	clear: none;
+	margin-right: 5px;
+	background-repeat: repeat-y;
+    
+}
+
+.articulo{
+	float: left;
+	width: 40%;
+	clear: none;
+	background-repeat: repeat-y;
+}
+
+
+#menu ul{	
+	list-style:none;
+	margin: auto;
+	display:block;
+	width: 1000%;
+	height: 30px;
+	
+}
+
+#menu ul li{
+	list-style:none;
+	display:inline;
+	float:left;
+	height:25px;
+	width: 120px;
+	font-family: Papyrus, Geneva, sans-serif;
+	font-size: 14px;
+}
+
+#menu ul li a{
+text-decoration: none;
+	padding-left: 10px;
+	color: #A78301;
+}
+
+#menu ul li a:hover{
+	text-shadow: 0px 0px 15px #666;
+	font-weight: bolder;
+	color: #FFF;
+}
+
+#menu ul li a:hover{
+	list-style-type: none;
+	background-repeat: no-repeat;
+	background-position: left;
+	color: #F2C526;
+	text-shadow: 0px 0px 5px #F9F33D;
+}
+
+body {
+	background-repeat: repeat-x;
+	background-color: white;
+	font-family: Papyrus, Geneva, sans-serif;
+	font-size: 20px;
+}
+
+
+
+.central  h2{
+	background-color: #D236F3;
+	color: #600;
+	padding: 100px;
+	margin-right: -10px;
+	margin-left: -10px;
+}
+
+#noticias,#publicidad{
+	background-repeat: no-repeat;
+	padding: 5px;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #899;
+	border-bottom-color: #999;
+}
+
+h3{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 5px;
+	text-align: center;
+}
+.central{
+	background-repeat: no-repeat;
+	padding: 20px;
+}
+
+.central img{
+	float: left;
+	margin: 5px;
+}
+a{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 5px;
+	text-align: right;
+}
+
