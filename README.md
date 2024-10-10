@@ -6,8 +6,8 @@
 ## Requisitos Previos
 ### Software Necesario
 1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi)
-3. **IntelliJ IDEA** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download)
+2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ```
+3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download).Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
 
@@ -107,6 +107,11 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 - **El `.war` no se genera**: Asegúrate de que el artefacto esté configurado correctamente en **Project Structure → Artifacts** y realiza un **Rebuild Project**.
 - **Error de base de datos**: Verifica las credenciales y la conexión a la base de datos en el archivo `database.properties`.
 - **Error de despliegue en Tomcat**: Consulta los **logs de Tomcat** en IntelliJ para más detalles o revisa el archivo `hs_err_pid.log`.
+```
+Error during artifact deployment. See server log for details.
+com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.ExecutionException: /Users/dantealegria/Downloads/ProjectAbarrotes/out/artifacts/unnamed/unnamed.war not found for the web module.
+```
+- Verifica haber agregado correctamente el proyecto al artefacto
 
 ## Autor
 **Dante Alegría**  
