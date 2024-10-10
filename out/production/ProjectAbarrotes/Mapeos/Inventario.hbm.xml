@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Inventario" table="inventario" catalog="abarrotes" optimistic-lock="version">
+        <id name="idInventario" type="java.lang.Integer">
+            <column name="id_inventario" />
+            <generator class="foreign">
+                <param name="property">estado</param>
+            </generator>
+        </id>
+        <one-to-one name="estado" class="Mapeos.Estado" constrained="true"></one-to-one>
+        <one-to-one name="pedido" class="Mapeos.Pedido" constrained="true"></one-to-one>
+        <one-to-one name="producto" class="Mapeos.Producto" constrained="true"></one-to-one>
+        <property name="fechaInv" type="string">
+            <column name="Fecha_inv" length="100" />
+        </property>
+        <property name="entradap" type="java.lang.Integer">
+            <column name="Entradap" />
+        </property>
+        <property name="salidap" type="java.lang.Integer">
+            <column name="Salidap" />
+        </property>
+        <property name="saldop" type="java.lang.Integer">
+            <column name="Saldop" />
+        </property>
+        <property name="entradac" type="java.lang.Float">
+            <column name="Entradac" precision="12" scale="0" />
+        </property>
+        <property name="salidac" type="java.lang.Float">
+            <column name="Salidac" precision="12" scale="0" />
+        </property>
+        <property name="saldoc" type="java.lang.Float">
+            <column name="Saldoc" precision="12" scale="0" />
+        </property>
+        <property name="costop" type="java.lang.Float">
+            <column name="Costop" precision="12" scale="0" />
+        </property>
+        <property name="precio" type="java.lang.Float">
+            <column name="Precio" precision="12" scale="0" />
+        </property>
+        <property name="idProducto" type="int">
+            <column name="id_producto" not-null="true" />
+        </property>
+        <property name="idPedido" type="int">
+            <column name="id_pedido" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

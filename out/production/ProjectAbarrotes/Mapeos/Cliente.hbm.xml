@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Cliente" table="cliente" catalog="abarrotes" optimistic-lock="version">
+        <id name="idCliente" type="java.lang.Integer">
+            <column name="id_cliente" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="250" />
+        </property>
+        <property name="apellPat" type="string">
+            <column name="Apell_pat" length="250" />
+        </property>
+        <property name="apellMat" type="string">
+            <column name="Apell_mat" length="250" />
+        </property>
+        <property name="fechaNac" type="string">
+            <column name="Fecha_nac" length="250" />
+        </property>
+        <property name="rfc" type="string">
+            <column name="RFC" length="100" />
+        </property>
+        <property name="correo" type="string">
+            <column name="Correo" length="150" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="100" />
+        </property>
+        <one-to-one name="paquete" class="Mapeos.Paquete"></one-to-one>
+        <one-to-one name="pedido" class="Mapeos.Pedido"></one-to-one>
+    </class>
+</hibernate-mapping>

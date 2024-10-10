@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Empleado" table="empleado" catalog="abarrotes" optimistic-lock="version">
+        <id name="noEmpleado" type="java.lang.Integer">
+            <column name="No_empleado" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreEmpleado" type="string">
+            <column name="Nombre_empleado" length="250" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="150" />
+        </property>
+        <property name="apellPatEmpleado" type="string">
+            <column name="Apell_pat_empleado" length="250" />
+        </property>
+        <property name="apellMatEmpleado" type="string">
+            <column name="Apell_mat_empleado" length="250" />
+        </property>
+        <property name="fechaNac" type="string">
+            <column name="Fecha_nac" length="50" />
+        </property>
+        <property name="rfce" type="string">
+            <column name="RFCE" length="100" not-null="true" />
+        </property>
+        <property name="salario" type="int">
+            <column name="Salario" not-null="true" />
+        </property>
+        <property name="estadoCivil" type="string">
+            <column name="estado_civil" length="150" />
+        </property>
+        <property name="estatus" type="string">
+            <column name="estatus" length="150" />
+        </property>
+        <property name="nivelEstudio" type="string">
+            <column name="nivel_estudio" length="150" />
+        </property>
+        <property name="tipoUsuario" type="string">
+            <column name="tipoUsuario" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>
