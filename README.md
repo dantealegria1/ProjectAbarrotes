@@ -28,11 +28,9 @@ ProjectAbarrotes/
 │   │   │   └── com.projectabarrotes.servlets/ # Servlets
 │   │   ├── resources/
 │   │   │   └── database.properties          # Configuración de base de datos
-│   │   └── webapp/
+│   │   └── web/
 │   │       ├── WEB-INF/
-│   │       │   └── web.xml                  # Descriptor de despliegue
-│   │       └── pages/                       # JSP
-│   │           └── index.jsp
+│   │       │  └── web.xml                  # Descriptor de despliegue
 │   └── test/
 ├── out/
 │   └── artifacts/
