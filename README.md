@@ -5,8 +5,8 @@
 
 ## Requisitos Previos
 ### Software Necesario
-1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ```
+1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) / ```sudo pacman -S jdk-openjdk```
+2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcatN  ``` donde N es la version, a mi la 10 no me funciono lol
 3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download). Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
@@ -28,11 +28,9 @@ ProjectAbarrotes/
 │   │   │   └── com.projectabarrotes.servlets/ # Servlets
 │   │   ├── resources/
 │   │   │   └── database.properties          # Configuración de base de datos
-│   │   └── webapp/
+│   │   └── web/
 │   │       ├── WEB-INF/
-│   │       │   └── web.xml                  # Descriptor de despliegue
-│   │       └── pages/                       # JSP
-│   │           └── index.jsp
+│   │       │  └── web.xml                  # Descriptor de despliegue
 │   └── test/
 ├── out/
 │   └── artifacts/
@@ -69,8 +67,8 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 ## Configuración en IntelliJ
 ### Configurar el Artefacto WAR
 1. **Crear el Artefacto WAR**:
-   - Ve a **File → Project Structure → Artifacts**.
-   - Añade un nuevo **artifact** y selecciona **Web Application: Exploded**.
+   - Ve a **File → Project Structure → Artifacts**. O ctrl + alt + shift + s
+   - Añade un nuevo **artifact** y selecciona **Web Application: Archive**.
    - Asegúrate de incluir los módulos necesarios como las clases `Java`, `JSP` y las librerías externas (JDBC driver).
    - Establece el directorio de salida para el archivo `.war`.
 
@@ -100,7 +98,7 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 
 5. Abre tu navegador y navega a:
    ```
-   http://localhost:8080/unnamed/
+   http://localhost:8080/Nombre de tu artefacto/
    ```
 
 ## Solución de Problemas
