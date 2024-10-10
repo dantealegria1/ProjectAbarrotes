@@ -7,7 +7,7 @@
 ### Software Necesario
 1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ```
-3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download).Con correo de estudiante nos dan 1 año gratis
+3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download). Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
 
