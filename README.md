@@ -5,8 +5,8 @@
 
 ## Requisitos Previos
 ### Software Necesario
-1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ```
+1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) / ```sudo pacman -S jdk-openjdk```
+2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcatN  ``` donde N es la version, a mi la 10 no me funciono lol
 3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download). Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
@@ -100,7 +100,7 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 
 5. Abre tu navegador y navega a:
    ```
-   http://localhost:8080/unnamed/
+   http://localhost:8080/Nombre de tu artefacto/
    ```
 
 ## Solución de Problemas
