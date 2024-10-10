@@ -69,8 +69,8 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 ## Configuración en IntelliJ
 ### Configurar el Artefacto WAR
 1. **Crear el Artefacto WAR**:
-   - Ve a **File → Project Structure → Artifacts**.
-   - Añade un nuevo **artifact** y selecciona **Web Application: Exploded**.
+   - Ve a **File → Project Structure → Artifacts**. O ctrl + alt + shift + s
+   - Añade un nuevo **artifact** y selecciona **Web Application: Archive**.
    - Asegúrate de incluir los módulos necesarios como las clases `Java`, `JSP` y las librerías externas (JDBC driver).
    - Establece el directorio de salida para el archivo `.war`.
 
