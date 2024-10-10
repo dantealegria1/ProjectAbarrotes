@@ -1,5 +1,3 @@
-Aquí tienes un ejemplo de **README** para tu proyecto **ProjectAbarrotes** utilizando **JSP, Java Beans, DAO**, y desplegado en **Tomcat** a través de **IntelliJ**:
-
 ---
 
 # ProjectAbarrotes
