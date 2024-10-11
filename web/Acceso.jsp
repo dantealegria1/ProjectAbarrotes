@@ -35,7 +35,7 @@
                             <td>Usuario</td>
                             <td><input type="text" name="usuario" valßue="" /></td>
                         </tr>
-                        <tr>ß
+                        <tr>œ
                             <td>Password</td>
                             <td><input type="password" name="contrasenia" value="" /></td>
                         </tr>
