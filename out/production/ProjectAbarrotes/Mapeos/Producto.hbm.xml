@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Producto" table="producto" catalog="abarrotes" optimistic-lock="version">
+        <id name="idProducto" type="java.lang.Integer">
+            <column name="id_producto" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreProducto" type="string">
+            <column name="Nombre_producto" length="250" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="250" />
+        </property>
+        <property name="presentacion" type="string">
+            <column name="Presentacion" length="100" />
+        </property>
+        <property name="caducidad" type="string">
+            <column name="Caducidad" length="50" />
+        </property>
+        <property name="precioProv" type="java.lang.Float">
+            <column name="Precio_prov" precision="12" scale="0" />
+        </property>
+        <property name="precioUni" type="java.lang.Float">
+            <column name="Precio_uni" precision="12" scale="0" />
+        </property>
+        <property name="existencias" type="java.lang.Integer">
+            <column name="Existencias" />
+        </property>
+        <property name="fech" type="string">
+            <column name="Fech" length="50" not-null="true" />
+        </property>
+        <property name="marca" type="string">
+            <column name="marca" length="100" />
+        </property>
+        <property name="idProveedor" type="int">
+            <column name="id_proveedor" not-null="true" />
+        </property>
+        <one-to-one name="paquete" class="Mapeos.Paquete"></one-to-one>
+        <one-to-one name="inventario" class="Mapeos.Inventario"></one-to-one>
+    </class>
+</hibernate-mapping>

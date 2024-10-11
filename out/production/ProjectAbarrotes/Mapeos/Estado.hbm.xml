@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Estado" table="estado" catalog="abarrotes" optimistic-lock="version">
+        <id name="idEstado" type="java.lang.Integer">
+            <column name="id_estado" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreEstado" type="string">
+            <column name="Nombre_estado" length="250" />
+        </property>
+        <one-to-one name="inventario" class="Mapeos.Inventario"></one-to-one>
+    </class>
+</hibernate-mapping>

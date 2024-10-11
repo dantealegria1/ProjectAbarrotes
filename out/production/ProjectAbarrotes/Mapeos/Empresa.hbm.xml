@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Mapeos.Empresa" table="empresa" catalog="abarrotes" optimistic-lock="version">
+        <id name="idEmpresa" type="java.lang.Integer">
+            <column name="id_empresa" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreEmpresa" type="string">
+            <column name="Nombre_empresa" length="250" />
+        </property>
+        <property name="razonSocial" type="string">
+            <column name="Razon_social" length="100" />
+        </property>
+        <property name="giro" type="string">
+            <column name="Giro" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

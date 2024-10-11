@@ -1,4 +1,4 @@
-<%@page import="java.util.List"%>
+œ<%@page import="java.util.List"%>
 <%@page import="Beans.ClienteDAO" %>
 <%@page import="Mapeos.Cliente" %>
 <jsp:useBean id="uname" scope="page" class="Mapeos.Cliente" />
@@ -32,10 +32,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Nombre</td>
-                            <td><input type="text" name="usuario" value="" /></td>
+                            <td>Usuario</td>
+                            <td><input type="text" name="usuario" valßue="" /></td>
                         </tr>
-                        <tr>
+                        <tr>ß
                             <td>Password</td>
                             <td><input type="password" name="contrasenia" value="" /></td>
                         </tr>

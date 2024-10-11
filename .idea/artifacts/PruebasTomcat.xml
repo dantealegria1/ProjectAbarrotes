@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="PruebasTomcat">
+    <output-path>$PROJECT_DIR$/out/artifacts/PruebasTomcat</output-path>
+    <root id="archive" name="PruebasTomcat.war">
+      <element id="dir-copy" path="$PROJECT_DIR$/web" />
+      <element id="library" level="project" name="Java EE 6-Java EE 6" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ProjectAbarrotes" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ProjectAbarrotes/web/Web2" />
+      <element id="javaee-facet-resources" facet="ProjectAbarrotes/web/Web" />
+    </root>
+  </artifact>
+</component>
