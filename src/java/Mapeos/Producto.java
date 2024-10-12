@@ -2,6 +2,7 @@ package Mapeos;
 // Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,145 +15,160 @@ import java.io.Serializable;
 @Table(name = "Producto")
 public class Producto  implements Serializable {
 
-
-     private Integer idProducto;
-     private String nombreProducto;
-     private String descripcion;
-     private String presentacion;
-     private String caducidad;
-     private Float precioProv;
-     private Float precioUni;
-     private Integer existencias;
-     private String fech;
-     private String marca;
-     private int idProveedor;
-//     private Paquete paquete;
-//     private Inventario inventario;
     @Id
-    private Long id;
+    @Column(name = "idProducto")  // Mapeo con la columna idProducto
+    private Integer idProducto;
+
+    @Column(name = "nombreProducto", nullable = false)  // nombreProducto es obligatorio
+    private String nombreProducto;
+
+    @Column(name = "descripcion", columnDefinition = "TEXT")  // descripcion de tipo TEXT
+    private String descripcion;
+
+    @Column(name = "presentacion", length = 100)  // presentacion con un tamaño máximo de 100 caracteres
+    private String presentacion;
+
+    @Column(name = "caducidad")  // Tipo DATE para la caducidad
+    private String caducidad;
+
+    @Column(name = "precioProv")  // Mapeo con la columna precioProv
+    private Float precioProv;
+
+    @Column(name = "precioUni")  // Mapeo con la columna precioUni
+    private Float precioUni;
+
+    @Column(name = "existencias")  // Mapeo con la columna existencias
+    private Integer existencias;
+
+    @Column(name = "fech")  // Mapeo con la columna fech
+    private String fech;
+
+    @Column(name = "marca", length = 100)  // marca con un tamaño máximo de 100 caracteres
+    private String marca;
+
+    @Column(name = "idProveedor")  // Mapeo con la columna idProveedor
+    private int idProveedor;
+
+    // Si deseas mapear las relaciones con Paquete e Inventario, debes usar anotaciones de relaciones como @ManyToOne o @OneToOne.
+    // Ejemplo para Paquete:
+    // @ManyToOne
+    // @JoinColumn(name = "idPaquete")  // Relación con la tabla Paquete
+    // private Paquete paquete;
+
+    // Ejemplo para Inventario:
+    // @ManyToOne
+    // @JoinColumn(name = "idInventario")  // Relación con la tabla Inventario
+    // private Inventario inventario;
+
 
     public Producto() {
     }
 
-	
+
     public Producto(String fech, int idProveedor) {
         this.fech = fech;
         this.idProveedor = idProveedor;
     }
-    public Producto(String nombreProducto, String descripcion, String presentacion, String caducidad, Float precioProv, Float precioUni, Integer existencias, String fech, String marca, int idProveedor, Paquete paquete, Inventario inventario) {
-       this.nombreProducto = nombreProducto;
-       this.descripcion = descripcion;
-       this.presentacion = presentacion;
-       this.caducidad = caducidad;
-       this.precioProv = precioProv;
-       this.precioUni = precioUni;
-       this.existencias = existencias;
-       this.fech = fech;
-       this.marca = marca;
-       this.idProveedor = idProveedor;
-//       this.paquete = paquete;
-//       this.inventario = inventario;
+
+    public Producto(String nombreProducto, String descripcion, String presentacion, String caducidad, Float precioProv, Float precioUni, Integer existencias, String fech, String marca, int idProveedor) {
+        this.nombreProducto = nombreProducto;
+        this.descripcion = descripcion;
+        this.presentacion = presentacion;
+        this.caducidad = caducidad;
+        this.precioProv = precioProv;
+        this.precioUni = precioUni;
+        this.existencias = existencias;
+        this.fech = fech;
+        this.marca = marca;
+        this.idProveedor = idProveedor;
     }
-   
+
     public Integer getIdProducto() {
-        return this.idProducto;
+        return idProducto;
     }
-    
+
     public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
+
     public String getNombreProducto() {
-        return this.nombreProducto;
+        return nombreProducto;
     }
-    
+
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
     }
+
     public String getDescripcion() {
-        return this.descripcion;
+        return descripcion;
     }
-    
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public String getPresentacion() {
-        return this.presentacion;
+        return presentacion;
     }
-    
+
     public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
     }
+
     public String getCaducidad() {
-        return this.caducidad;
+        return caducidad;
     }
-    
+
     public void setCaducidad(String caducidad) {
         this.caducidad = caducidad;
     }
+
     public Float getPrecioProv() {
-        return this.precioProv;
+        return precioProv;
     }
-    
+
     public void setPrecioProv(Float precioProv) {
         this.precioProv = precioProv;
     }
+
     public Float getPrecioUni() {
-        return this.precioUni;
+        return precioUni;
     }
-    
+
     public void setPrecioUni(Float precioUni) {
         this.precioUni = precioUni;
     }
+
     public Integer getExistencias() {
-        return this.existencias;
+        return existencias;
     }
-    
+
     public void setExistencias(Integer existencias) {
         this.existencias = existencias;
     }
+
     public String getFech() {
-        return this.fech;
+        return fech;
     }
-    
+
     public void setFech(String fech) {
         this.fech = fech;
     }
+
     public String getMarca() {
-        return this.marca;
+        return marca;
     }
-    
+
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
     public int getIdProveedor() {
-        return this.idProveedor;
+        return idProveedor;
     }
-    
+
     public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
-    }
-//    public Paquete getPaquete() {
-//        return this.paquete;
-//    }
-//
-//    public void setPaquete(Paquete paquete) {
-//        this.paquete = paquete;
-//    }
-//    public Inventario getInventario() {
-//        return this.inventario;
-//    }
-//
-//    public void setInventario(Inventario inventario) {
-//        this.inventario = inventario;
-//    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
 

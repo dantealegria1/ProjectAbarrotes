@@ -17,23 +17,24 @@ public class ProductoDAO {
 
     // Guarda un producto en la base de datos
     public int guardaProducto(Producto producto) throws HibernateException {
-        int id = -1;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Integer productoID = null;
 
         try {
-            iniciaOperacion();
-            id = (Integer) sesion.save(producto);
-            tx.commit();
-        } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
+            transaction = session.beginTransaction();
+            productoID = (Integer) session.save(producto);  // Guarda el producto en la base de datos
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            throw new HibernateException("Error al guardar el producto", e);
         } finally {
-            // Validar que la sesión no sea null antes de cerrarla
-            if (sesion != null) {
-                sesion.close();
-            }
+            session.close();
         }
-        return id;
+        return productoID;
     }
+
+
 
     // Elimina un producto por su número
     public void eliminaProducto(int ProductoNo) {
@@ -99,20 +100,17 @@ public class ProductoDAO {
 
     // Inicia la sesión y la transacción de Hibernate
     private void iniciaOperacion() {
-        try {
-            sesion = HibernateUtil.getSessionFactory().openSession();
-            tx = sesion.beginTransaction();
-        } catch (Exception e) {
-            System.out.println("Error al iniciar la operación: " + e.getMessage());
-            e.printStackTrace();
-        }
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction(); // Inicia la transacción aquí
     }
+
 
     // Maneja las excepciones y realiza el rollback si es necesario
     private void manejaExcepcion(HibernateException he) throws HibernateException {
-        if (tx != null) {
-            tx.rollback();
+        if (tx != null && tx.isActive()) {
+            tx.rollback(); // Solo revierte si la transacción está activa
         }
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
     }
+
 }
