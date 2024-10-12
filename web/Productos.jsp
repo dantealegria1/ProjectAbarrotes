@@ -2,6 +2,7 @@
     Document   : Productos
     Created on : 2/11/2013, 03:30:21 PM
     Author     : USUARIO
+    Modificacion: Dante, 11/10
 --%>
 
 <%@page import="Mapeos.Producto"%>
@@ -19,6 +20,19 @@
     <script type="text/javascript">
         //Defino Variables Globales
         var peticion;
+
+        function obtenerXHR() {
+            var xhr = null;
+            if (window.XMLHttpRequest) {
+                // Todos los navegadores modernos tienen esta implementación
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                // Esta es la implementación para Internet Explorer 6 y anteriores
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xhr;
+        }
+
         peticion = obtenerXHR();
         function completapalabra(elemento) {
 

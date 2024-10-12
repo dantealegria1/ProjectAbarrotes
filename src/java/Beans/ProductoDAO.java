@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import Hibernate.HibernateUtil;
@@ -10,17 +6,17 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-/**
- *
- * @author USUARIO
+/*
+- Autor: Dante
+- Fecha: 11/10
  */
 public class ProductoDAO {
 
-      private Session sesion;
+    private Session sesion;
     private Transaction tx;
 
-    public int guardaProducto(Mapeos.Producto producto) throws HibernateException {
+    // Guarda un producto en la base de datos
+    public int guardaProducto(Producto producto) throws HibernateException {
         int id = -1;
 
         try {
@@ -30,15 +26,16 @@ public class ProductoDAO {
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
-            sesion.close();
+            // Validar que la sesión no sea null antes de cerrarla
+            if (sesion != null) {
+                sesion.close();
+            }
         }
         return id;
     }
 
+    // Elimina un producto por su número
     public void eliminaProducto(int ProductoNo) {
         try {
             iniciaOperacion();
@@ -48,21 +45,27 @@ public class ProductoDAO {
         } catch (HibernateException he) {
             manejaExcepcion(he);
         } finally {
-            sesion.close();
+            if (sesion != null) {
+                sesion.close();
+            }
         }
     }
 
+    // Obtiene un producto por su número
     public Producto obtenProducto(int NoProducto) throws HibernateException {
         Producto producto = null;
         try {
             iniciaOperacion();
             producto = (Producto) sesion.get(Producto.class, NoProducto);
         } finally {
-            sesion.close();
+            if (sesion != null) {
+                sesion.close();
+            }
         }
         return producto;
     }
 
+    // Obtiene la lista de todos los productos
     public List<Producto> obtenListaProducto() throws HibernateException {
         List<Producto> listaProductos = null;
 
@@ -70,12 +73,15 @@ public class ProductoDAO {
             iniciaOperacion();
             listaProductos = sesion.createQuery("from Producto").list();
         } finally {
-            sesion.close();
+            if (sesion != null) {
+                sesion.close();
+            }
         }
         return listaProductos;
     }
 
-    public int actualizaProducto(Mapeos.Producto producto) throws HibernateException {
+    // Actualiza un producto en la base de datos
+    public int actualizaProducto(Producto producto) throws HibernateException {
         try {
             iniciaOperacion();
             sesion.update(producto);
@@ -84,28 +90,29 @@ public class ProductoDAO {
             manejaExcepcion(he);
             throw he;
         } finally {
-            sesion.close();
+            if (sesion != null) {
+                sesion.close();
+            }
         }
         return 0;
     }
 
-    private void iniciaOperacion(){
-       try{
-           
-       
-        sesion = HibernateUtil.getSessionFactory().openSession();
-        tx = sesion.beginTransaction();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+    // Inicia la sesión y la transacción de Hibernate
+    private void iniciaOperacion() {
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            tx = sesion.beginTransaction();
+        } catch (Exception e) {
+            System.out.println("Error al iniciar la operación: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+    // Maneja las excepciones y realiza el rollback si es necesario
     private void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
+        if (tx != null) {
+            tx.rollback();
+        }
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
     }
-    
-    
-    
 }
