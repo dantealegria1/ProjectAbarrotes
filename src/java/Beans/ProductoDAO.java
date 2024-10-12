@@ -2,6 +2,8 @@ package Beans;
 
 import Hibernate.HibernateUtil;
 import Mapeos.Producto;
+
+import java.sql.SQLOutput;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -21,8 +23,11 @@ public class ProductoDAO {
         Transaction transaction = null;
         Integer productoID = null;
 
+        System.out.print("HOLA");
+
         try {
             transaction = session.beginTransaction();
+            System.out.print("HOLA 2");
             productoID = (Integer) session.save(producto);  // Guarda el producto en la base de datos
             transaction.commit();
         } catch (HibernateException e) {

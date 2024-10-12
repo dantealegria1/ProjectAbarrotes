@@ -2,10 +2,7 @@ package Mapeos;
 // Generated 27/10/2014 08:16:01 AM by Hibernate Tools 4.3.1
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -16,6 +13,7 @@ import java.io.Serializable;
 public class Producto  implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProducto")  // Mapeo con la columna idProducto
     private Integer idProducto;
 
