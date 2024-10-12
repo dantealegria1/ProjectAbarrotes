@@ -6,6 +6,7 @@ import Mapeos.Producto;
 import java.sql.SQLOutput;
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 /*
@@ -58,49 +59,78 @@ public class ProductoDAO {
     }
 
     // Obtiene un producto por su número
-    public Producto obtenProducto(int NoProducto) throws HibernateException {
+    public Producto obtenProducto(int idProducto) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
         Producto producto = null;
         try {
-            iniciaOperacion();
-            producto = (Producto) sesion.get(Producto.class, NoProducto);
-        } finally {
-            if (sesion != null) {
-                sesion.close();
+            tx = session.beginTransaction(); // Solo comienza una transacción si no hay una activa
+            producto = (Producto) session.get(Producto.class, idProducto);
+            tx.commit(); // Commit de la transacción
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback(); // Revertir si hay un error
             }
+            e.printStackTrace();
+        } finally {
+            session.close(); // Asegúrate de cerrar la sesión
         }
         return producto;
     }
 
+
+
     // Obtiene la lista de todos los productos
-    public List<Producto> obtenListaProducto() throws HibernateException {
+    public List<Producto> obtenListaProducto(String nombre) throws HibernateException {
         List<Producto> listaProductos = null;
 
         try {
             iniciaOperacion();
-            listaProductos = sesion.createQuery("from Producto").list();
+
+            // Usamos un query con un criterio de búsqueda
+            if (nombre == null || nombre.isEmpty()) {
+                // Si el nombre está vacío o es nulo, obtenemos todos los productos
+                listaProductos = sesion.createQuery("from Producto").list();
+            } else {
+                // Si hay un nombre, buscamos por ese nombre
+                listaProductos = sesion.createQuery("from Producto WHERE nombreProducto = :nombre")
+                        .setParameter("nombre", nombre)
+                        .list();
+            }
+
+            tx.commit();  // Confirmamos la transacción
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();  // Si hay un error, revertimos la transacción
+            }
+            throw e;  // Re-lanzamos la excepción para manejo posterior
         } finally {
             if (sesion != null) {
-                sesion.close();
+                sesion.close();  // Cerramos la sesión
             }
         }
         return listaProductos;
     }
 
+
+
     // Actualiza un producto en la base de datos
     public int actualizaProducto(Producto producto) throws HibernateException {
+        int resultado = 0; // Variable para almacenar el resultado de la operación
         try {
-            iniciaOperacion();
-            sesion.update(producto);
-            tx.commit();
+            iniciaOperacion(); // Inicializa la sesión y la transacción
+            sesion.update(producto); // Actualiza el producto en la base de datos
+            tx.commit(); // Realiza el commit de la transacción
+            resultado = 1; // La actualización fue exitosa
         } catch (HibernateException he) {
-            manejaExcepcion(he);
-            throw he;
+            manejaExcepcion(he); // Maneja la excepción
+            throw he; // Vuelve a lanzar la excepción
         } finally {
             if (sesion != null) {
-                sesion.close();
+                sesion.close(); // Cierra la sesión si no es nula
             }
         }
-        return 0;
+        return resultado; // Retorna el resultado
     }
 
     // Inicia la sesión y la transacción de Hibernate

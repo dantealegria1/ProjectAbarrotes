@@ -17,7 +17,7 @@
     <body>
         <h1>Portal de información del producto</h1>
         <% ProductoDAO productoDAO = new ProductoDAO();
-            List<Producto> listaproductos = productoDAO.obtenListaProducto();  
+            List<Producto> listaproductos = productoDAO.obtenListaProducto("");
         %>
         <form>
             <HR> 
@@ -63,11 +63,19 @@
         <%
             if (request.getParameter("eliminar") != null) {
                 String[] chbproductos = request.getParameterValues("cbactores");
-                for (int i = 0; i < chbproductos.length; i++) {
-                    out.println("<li>" + chbproductos[i]);
-                    productoDAO.eliminaProducto(Short.valueOf(chbproductos[i]));
-                    out.println(" El producto ha sido eliminado");
+                if (chbproductos != null) { // Verificar que hay productos seleccionados
+                    for (String productoId : chbproductos) {
+                        productoDAO.eliminaProducto(Short.valueOf(productoId));
+                        out.println("<li>El producto con ID " + productoId + " ha sido eliminado</li>");
+                    }
+                    out.println("<li>Todos los productos seleccionados han sido eliminados.</li>");
+                } else {
+                    out.println("<li>No se seleccionó ningún producto para eliminar.</li>");
                 }
+
+                // Redirigir a la misma página para recargar
+                response.sendRedirect("EliminarProducto.jsp");
+                return; // Asegúrate de salir del script después de la redirección
             }
         %>
     </body>

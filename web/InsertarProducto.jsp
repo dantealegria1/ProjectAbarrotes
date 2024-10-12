@@ -148,6 +148,7 @@
     </tbody>
 </table>
 <h2>Producto agregado</h2>
+<a href="EliminarProducto.jsp">Ver Productos</a>
 <% } else { %>
 <h2>Lo sentimos, no se pudo insertar el registro</h2>
 <% } } %>

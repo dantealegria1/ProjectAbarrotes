@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>producto</title>
     </head>
-    <script type="text/javascript" src="XHR.js"></script>
+
     <script type="text/javascript">
         //Defino Variables Globales
         var peticion;
@@ -74,7 +74,7 @@
         </div>
 
         <% ProductoDAO productoDAO = new ProductoDAO();
-            List<Producto> listaproductos = productoDAO.obtenListaProducto();
+            List<Producto> listaproductos = productoDAO.obtenListaProducto("");
         %>
         <form>
             <CENTER>
