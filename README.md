@@ -6,7 +6,7 @@
 ## Requisitos Previos
 ### Software Necesario
 1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) / ```sudo pacman -S jdk-openjdk```
-2. **Apache Tomcat** 10.x. [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcatN  ``` donde N es la version, a mi la 10 no me funciono lol
+2. **Apache Tomcat** 10.1.31 [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcatN  ``` SE NECESITA QUE SEA ESA!!!!!
 3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download). Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
@@ -71,6 +71,7 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
    - Añade un nuevo **artifact** y selecciona **Web Application: Archive**.
    - Asegúrate de incluir los módulos necesarios como las clases `Java`, `JSP` y las librerías externas (JDBC driver).
    - Establece el directorio de salida para el archivo `.war`.
+     **OJO PIOJO** Ya esta incluido PruebasTomcat.war SE RECOMIENDA USAR ESE
 
 2. **Configurar Tomcat Server**:
    - Ve a **Run → Edit Configurations → + → Tomcat Server → Local**.
@@ -98,8 +99,20 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 
 5. Abre tu navegador y navega a:
    ```
-   http://localhost:8080/Nombre de tu artefacto/
+   http://localhost:8080/PruebasTomcat/
    ```
+
+###ATENCION ATENCION!!!!!
+- El artefacto PruebasTomcat es el que ha sido probado, si quieres crear unoa delante
+```
+    <!-- Conexión a la base de datos -->
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/abarrotes_db</property>
+    <property name="hibernate.connection.username">dante</property>
+    <property name="hibernate.connection.password">180818</property>
+
+```
+- username es el que pusieron en mysql igual la contraseña, o ponen el mio o lo cambian sino no Jala
 
 ## Solución de Problemas
 - **El `.war` no se genera**: Asegúrate de que el artefacto esté configurado correctamente en **Project Structure → Artifacts** y realiza un **Rebuild Project**.
@@ -118,3 +131,4 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 ---
 
 Este **README** proporciona una guía completa para configurar y ejecutar tu proyecto **ProjectAbarrotes** en **Tomcat** usando **IntelliJ**.
+![WhatsApp Image 2024-10-12 at 12 41 34 AM](https://github.com/user-attachments/assets/501f0c62-29f4-41eb-9cf7-8367b66e19fe)
