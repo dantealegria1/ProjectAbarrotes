@@ -79,7 +79,7 @@
         <form>
             <CENTER>
                 <HR> 
-                <I>Para poder comprar un producto es necesario tener un cuenta.</I>.<a href="Principal.html"> Regresar</a>
+                <I>Para poder comprar un producto es necesario tener una cuenta.</I>.<a href="Principal.html"> Regresar</a>
                 </HR>
                 <table border="1">
                     <thead>
