@@ -6,7 +6,8 @@
 ## Requisitos Previos
 ### Software Necesario
 1. **JDK** (Java Development Kit) 8 o superior. [Instalar JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) / ```sudo pacman -S jdk-openjdk```
-2. **Apache Tomcat** 10.1.31 [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcatN  ``` SE NECESITA QUE SEA ESA!!!!!
+2. **Apache Tomcat** 10.1.31 [Descargar Tomcat](https://tomcat.apache.org/download-10.cgi) / ```yay -S tomcat  ``` o tambien ```sudo pacman -S tomcat10   ``` (EN lo personal no me funciono desde pacman lol
+
 3. **IntelliJ IDEA ULTIMATE EDITION** con soporte para **Java EE**. [Descargar IntelliJ](https://www.jetbrains.com/idea/download). Con correo de estudiante nos dan 1 año gratis
 4. **MySQL** o cualquier otro gestor de base de datos relacional compatible. [Descargar MySQL](https://dev.mysql.com/downloads/)
 5. **Maven** (opcional, para gestión de dependencias).
@@ -78,6 +79,45 @@ VALUES (
        );
 
 SELECT * FROM abarrotes_db.Producto;
+=======
+USE abarrotes_db;
+
+CREATE TABLE Producto (
+idProducto INT AUTO_INCREMENT PRIMARY KEY,
+nombreProducto VARCHAR(255) NOT NULL,
+descripcion TEXT,
+presentacion VARCHAR(100),
+caducidad DATE,
+precioProv FLOAT,
+precioUni FLOAT,
+existencias INT,
+fech DATE,
+marca VARCHAR(100),
+idProveedor INT,
+idPaquete INT, -- Clave foránea para la tabla Paquete
+idInventario INT -- Clave foránea para la tabla Inventario
+);
+
+-- Producto prueba
+INSERT INTO Producto (nombreProducto, descripcion, presentacion, caducidad, precioProv, precioUni, existencias, fech, marca, idProveedor, idPaquete, idInventario)
+VALUES (
+'Galletas de Chocolate',
+'Galletas con chispas de chocolate',
+'Paquete de 200g',
+'2025-12-31',
+10.50,
+15.00,
+100,
+'2024-10-11',
+'MarcaGenérica',
+1,
+1,
+1
+);
+
+SELECT * FROM abarrotes_db.Producto;
+
+describe Producto
 ```
 
 Asegúrate de tener el archivo `database.properties` configurado correctamente en el directorio `src/main/resources/`. Ejemplo:
@@ -91,6 +131,7 @@ jdbc.driverClassName=com.mysql.cj.jdbc.Driver
 
 ## Configuración en IntelliJ
 ### Configurar el Artefacto WAR
+**NOTA:** Recomiendo usar el artefacto de PruebasTomcat
 1. **Crear el Artefacto WAR**:
    - Ve a **File → Project Structure → Artifacts**. O ctrl + alt + shift + s
    - Añade un nuevo **artifact** y selecciona **Web Application: Archive**.
