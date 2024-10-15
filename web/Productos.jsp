@@ -2,6 +2,7 @@
     Document   : Productos
     Created on : 2/11/2013, 03:30:21 PM
     Author     : USUARIO
+    Modificacion: Dante, 11/10
 --%>
 
 <%@page import="Mapeos.Producto"%>
@@ -15,10 +16,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>producto</title>
     </head>
-    <script type="text/javascript" src="XHR.js"></script>
+
     <script type="text/javascript">
         //Defino Variables Globales
         var peticion;
+
+        function obtenerXHR() {
+            var xhr = null;
+            if (window.XMLHttpRequest) {
+                // Todos los navegadores modernos tienen esta implementación
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                // Esta es la implementación para Internet Explorer 6 y anteriores
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            return xhr;
+        }
+
         peticion = obtenerXHR();
         function completapalabra(elemento) {
 
@@ -60,12 +74,12 @@
         </div>
 
         <% ProductoDAO productoDAO = new ProductoDAO();
-            List<Producto> listaproductos = productoDAO.obtenListaProducto();
+            List<Producto> listaproductos = productoDAO.obtenListaProducto("");
         %>
         <form>
             <CENTER>
                 <HR> 
-                <I>Para poder comprar un producto es necesario tener un cuenta.</I>.<a href="Principal.html"> Regresar</a>
+                <I>Para poder comprar un producto es necesario tener una cuenta.</I>.<a href="Principal.html"> Regresar</a>
                 </HR>
                 <table border="1">
                     <thead>

@@ -4,6 +4,8 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/build/web/Productos.jsp" value="file://$PROJECT_DIR$/build/web" />
+        <entry key="file://$PROJECT_DIR$/web/InsertarProducto.jsp" value="file://$PROJECT_DIR$/build/web" />
+        <entry key="file://$PROJECT_DIR$/web/ModificarProducto.jsp" value="file://$PROJECT_DIR$/build/web" />
       </map>
     </option>
   </component>
