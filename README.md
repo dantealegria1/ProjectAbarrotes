@@ -79,43 +79,7 @@ VALUES (
        );
 
 SELECT * FROM abarrotes_db.Producto;
-=======
-USE abarrotes_db;
 
-CREATE TABLE Producto (
-idProducto INT AUTO_INCREMENT PRIMARY KEY,
-nombreProducto VARCHAR(255) NOT NULL,
-descripcion TEXT,
-presentacion VARCHAR(100),
-caducidad DATE,
-precioProv FLOAT,
-precioUni FLOAT,
-existencias INT,
-fech DATE,
-marca VARCHAR(100),
-idProveedor INT,
-idPaquete INT, -- Clave foránea para la tabla Paquete
-idInventario INT -- Clave foránea para la tabla Inventario
-);
-
--- Producto prueba
-INSERT INTO Producto (nombreProducto, descripcion, presentacion, caducidad, precioProv, precioUni, existencias, fech, marca, idProveedor, idPaquete, idInventario)
-VALUES (
-'Galletas de Chocolate',
-'Galletas con chispas de chocolate',
-'Paquete de 200g',
-'2025-12-31',
-10.50,
-15.00,
-100,
-'2024-10-11',
-'MarcaGenérica',
-1,
-1,
-1
-);
-
-SELECT * FROM abarrotes_db.Producto;
 
 describe Producto
 ```
