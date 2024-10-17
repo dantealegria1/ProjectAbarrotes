@@ -12,6 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Mapeos.Empleado;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 public class EmpleadoDAO {
 
     private Session sesion;
@@ -61,11 +64,11 @@ public class EmpleadoDAO {
     }
 
     public List<Empleado> obtenListaEmpleado() throws HibernateException {
-        List<Empleado> listaEmpleados = null;
+        List listaEmpleados = null;
 
         try {
             iniciaOperacion();
-            listaEmpleados = sesion.createQuery("from Empleado").list();
+            listaEmpleados = sesion.createSQLQuery("SELECT * FROM Empleado").addEntity(Empleado.class).list();
         } finally {
             sesion.close();
         }
