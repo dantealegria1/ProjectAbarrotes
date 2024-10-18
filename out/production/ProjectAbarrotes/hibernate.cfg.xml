@@ -20,6 +20,7 @@
 
     <!-- Mapeo de clases -->
     <mapping class="Mapeos.Producto"/>
+    <mapping class="Mapeos.Empleado" />
 
   </session-factory>
 

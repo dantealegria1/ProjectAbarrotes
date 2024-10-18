@@ -154,6 +154,17 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 ```
 - Verifica haber agregado correctamente el proyecto al artefacto
 
+## Databases
+- [x] Empleados
+- [x] Productos
+- [ ] Clientes
+- [ ] Pedido
+- [ ] Inventario
+- [ ] Estado
+- [ ] Proveedor
+- [ ] Empresa
+- [ ] Paquete
+
 ## Autor
 **Dante Alegría**  
 [GitHub](https://github.com/tu-usuario) | [LinkedIn](https://www.linkedin.com/in/tu-usuario)

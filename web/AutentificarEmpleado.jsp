@@ -5,7 +5,8 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="Beans.EmpleadoDAO"%>
+<%@page import="Beans.EmpleadoDAO"
+%>
 <%@page import="Mapeos.Empleado"%>
 <jsp:useBean id="uname" scope="page" class="Mapeos.Empleado" />
 <link rel="stylesheet" type="text/css" href="css.css" title="style">
@@ -64,9 +65,9 @@
             for (i = 0; i < listaEmpleados.size(); i++) {
                 uname.setNombreEmpleado(request.getParameter("usuario"));
                 uname.setPassword(request.getParameter("contrasenia"));
-                if ((uname.getNombreEmpleado().toString().equals(listaEmpleados.get(i).getNombreEmpleado().toString()))
-                        && (uname.getPassword().toString().equals(listaEmpleados.get(i).getPassword().toString()))) {
-                    if (listaEmpleados.get(i).getTipoUsuario().toString().equals("Empleado") || listaEmpleados.get(i).getTipoUsuario().toString().equals("Administrador")) {
+                if ((uname.getNombreEmpleado().equals(listaEmpleados.get(i).getNombreEmpleado()))
+                        && (uname.getPassword().equals(listaEmpleados.get(i).getPassword()))) {
+                    if (listaEmpleados.get(i).getTipoUsuario().equals("Empleado") || listaEmpleados.get(i).getTipoUsuario().equals("Administrador")) {
                         us = true;
         %>
     <center>

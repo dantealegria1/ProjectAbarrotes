@@ -7,7 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Beans.EmpleadoDAO"%>
 <%@page import="Mapeos.Empleado"%>
-<jsp:useBean id="uname" scope="page" class="Mapeos.Empleado" />
+<jsp:useBean id="uname" class="Mapeos.Empleado" />
 <link rel="stylesheet" type="text/css" href="css.css" title="style">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,11 +38,15 @@
                     <tbody>
                         <tr>
                             <td>Nombre</td>
-                            <td><input type="text" name="usuario" value="" /></td>
+                            <td><label>
+                                <input type="text" name="usuario" value="" />
+                            </label></td>
                         </tr>
                         <tr>
                             <td>Password</td>
-                            <td><input type="password" name="contrasenia" value="" /></td>
+                            <td><label>
+                                <input type="password" name="contrasenia" value="" />
+                            </label></td>
                         </tr>
                         <tr>
                             <td><input type="submit" name="enviar" value="Entrar" /></td>
@@ -64,17 +68,19 @@
             for (i = 0; i < listaEmpleados.size(); i++) {
                 uname.setNombreEmpleado(request.getParameter("usuario"));
                 uname.setPassword(request.getParameter("contrasenia"));
-                if ((uname.getNombreEmpleado().toString().equals(listaEmpleados.get(i).getNombreEmpleado().toString()))
-                        && (uname.getPassword().toString().equals(listaEmpleados.get(i).getPassword().toString()))) {
-                    if (listaEmpleados.get(i).getTipoUsuario().toString().equals("Empleado") || listaEmpleados.get(i).getTipoUsuario().toString().equals("Administrador")) {
+                if ((uname.getNombreEmpleado().equals(listaEmpleados.get(i).getNombreEmpleado()))
+                        && (uname.getPassword().equals(listaEmpleados.get(i).getPassword()))) {
+                    if (listaEmpleados.get(i).getTipoUsuario().equals("Administrador")) {
                         us = true;
         %>
     <center>
-        <h3>Bienvenido <% out.println(uname.getNombreEmpleado().toString());%></h3>
+        <h3>Bienvenido <% out.println(uname.getNombreEmpleado());%></h3>
         <P> <B>PORTAL PARA LOS PRODUCTOS</B> </P>
         <input type="button" onclick=" location.href = 'EliminarProducto.jsp' " value="Productos" name="boton" />
         <P> <B>PORTAL PARA LA CONFIGURACION DE CLIENTES</B> </P>
         <input type="button" onclick=" location.href = 'EliminarCliente.jsp' " value="Clientes" name="boton" />
+        <P><B>PORTAL PARA LA CONFIGURACION DE EMPLEADOS</B> </P>
+        <input type="button" onclick="location.href = 'EliminarEmpleado.jsp' " value="Empleados" name="boton" />
     </center>
     <%  break;
     } else {
@@ -88,7 +94,7 @@
                 }
             }
         }
-        if (us == false) {
+        if (!us) {
     %>
     <center>
         <h3>El usuario y/ó contraseña son incorrectos.</h3>
