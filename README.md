@@ -172,4 +172,5 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 ---
 
 Este **README** proporciona una guía completa para configurar y ejecutar tu proyecto **ProjectAbarrotes** en **Tomcat** usando **IntelliJ**.
-![WhatsApp Image 2024-10-12 at 12 41 34 AM](https://github.com/user-attachments/assets/501f0c62-29f4-41eb-9cf7-8367b66e19fe)
+
+![Captura de pantalla 2024-10-12 195635](https://github.com/user-attachments/assets/7075944c-5406-4168-a161-9d339ab1cfe8)
