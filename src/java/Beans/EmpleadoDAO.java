@@ -1,10 +1,5 @@
-
 package Beans;
 
-/**
- *
- * @author Search
- */
 import Hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -12,43 +7,58 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import Mapeos.Empleado;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 public class EmpleadoDAO {
 
     private Session sesion;
     private Transaction tx;
 
-    public int guardaEmpleado(Mapeos.Empleado empleado) throws HibernateException {
-        int id = -1;
+    private void iniciaOperacion() throws HibernateException {
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            tx = sesion.beginTransaction();
+        } catch (HibernateException e) {
+            System.out.println("Error al iniciar la sesión: " + e.getMessage());
+            throw e;
+        }
+    }
 
+    private void manejaExcepcion(HibernateException he) throws HibernateException {
+        if (tx != null) {
+            tx.rollback();  // Rollback de la transacción en caso de error
+        }
+        throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
+    }
+
+    public int guardaEmpleado(Empleado empleado) throws HibernateException {
+        int id = -1;
         try {
             iniciaOperacion();
             id = (Integer) sesion.save(empleado);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
-            sesion.close();
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
         return id;
     }
 
-    public void eliminaEmpleado(int EmpleadoNo) {
+    public void eliminaEmpleado(int EmpleadoNo) throws HibernateException {
         try {
             iniciaOperacion();
             Empleado empleado = (Empleado) sesion.get(Empleado.class, EmpleadoNo);
-            sesion.delete(empleado);
-            tx.commit();
+            if (empleado != null) {
+                sesion.delete(empleado);
+                tx.commit();
+            }
         } catch (HibernateException he) {
             manejaExcepcion(he);
         } finally {
-            sesion.close();
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
     }
 
@@ -58,68 +68,39 @@ public class EmpleadoDAO {
             iniciaOperacion();
             empleado = (Empleado) sesion.get(Empleado.class, NoEmpleado);
         } finally {
-            sesion.close();
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
         return empleado;
     }
 
     public List<Empleado> obtenListaEmpleado() throws HibernateException {
-        List listaEmpleados = null;
-
+        List<Empleado> listaEmpleados = null;
         try {
             iniciaOperacion();
-            listaEmpleados = sesion.createSQLQuery("SELECT * FROM Empleado").addEntity(Empleado.class).list();
+            listaEmpleados = sesion.createQuery("FROM Empleado").list();  // Usar HQL en lugar de SQL
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
         } finally {
-            sesion.close();
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
         return listaEmpleados;
     }
 
-    public void actualizaEmpleado(int EmpleadoNo) throws HibernateException {
+    public void actualizaEmpleado(Empleado empleado) throws HibernateException {
         try {
             iniciaOperacion();
-            Empleado empleado = (Empleado) sesion.get(Empleado.class, EmpleadoNo);
             sesion.update(empleado);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he;
         } finally {
-            sesion.close();
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
         }
-        //return 0;
-    }
-
-    /* forma de actualizar 2 */
-//    public void updateEmpleado(Integer NoEmpleado, String NombreEmpleado) {
-//        iniciaOperacion();
-//        try {
-//            Empleado empleado =
-//                    (Empleado) sesion.get(Empleado.class, NoEmpleado);
-//            Empleado.setFirstName(nombre);
-//            sesion.update(empleado);
-//            tx.commit();
-//        } catch (HibernateException he) {
-//            manejaExcepcion(he);
-//        } finally {
-//            sesion.close();
-//        }
-//    }
-
-    private void iniciaOperacion(){
-       try{
-           
-       
-        sesion = HibernateUtil.getSessionFactory().openSession();
-        tx = sesion.beginTransaction();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
-        throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
     }
 }

@@ -60,7 +60,7 @@
                         <td><input type="checkbox" name="cbactores" value="<%=a.getNoEmpleado()%>"/></td>
                     </tr>
                     <%
-                            valor = a.getNoEmpleado().intValue();
+                            valor = a.getNoEmpleado();
                         }
                     %>
                 </table>
@@ -154,7 +154,7 @@
 
                     <tr>
                         <td>
-                            <select id="tipoUsuario" name="tipoUsuario" value="<%= empleado.getTipoUsuario()%>"> 
+                            <select id="tipoUsuario" name="tipoUsuario" value="<%= empleado.getTipoUsuario()%>">
                                 <option value="Administrador">Administrador</option>
                                 <option value="Empleado">Empleado</option>
                             </select>

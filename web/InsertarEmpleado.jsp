@@ -12,10 +12,10 @@
         <title>JSP Page</title>
         <script type="text/javascript">
             function permite(elEvento, permitidos) { // Variables que definen los caracteres permitidos 
-                var numeros = "0123456789";
-                var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-                var numeros_caracteres = numeros + caracteres;
-                var teclas_especiales = [8, 37, 39, 46];
+                const numeros = "0123456789";
+                const caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+                const numeros_caracteres = numeros + caracteres;
+                const teclas_especiales = [8, 37, 39, 46];
                 switch (permitidos) {
                     case 'num':
                         permitidos = numeros;
@@ -28,112 +28,103 @@
                         break;
                 }
                 // Obtener la tecla pulsada
-                var evento = elEvento || window.event;
-                var codigoCaracter = evento.charCode || evento.keyCode;
-                var caracter = String.fromCharCode(codigoCaracter);
+                const evento = elEvento || window.event;
+                const codigoCaracter = evento.charCode || evento.keyCode;
+                const caracter = String.fromCharCode(codigoCaracter);
                 // Comprobar si la tecla pulsada es alguna de las teclas especiales
                 // (teclas de borrado y flechas horizontales)
-                var tecla_especial = false;
-                for (var i in teclas_especiales) {
-                    if (codigoCaracter == teclas_especiales[i]) {
+                let tecla_especial = false;
+                for (const i in teclas_especiales) {
+                    if (codigoCaracter === teclas_especiales[i]) {
                         tecla_especial = true;
                         break;
                     }
                 }
                 // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
                 // o si es una tecla especial
-                return permitidos.indexOf(caracter) != -1 || tecla_especial;
+                return permitidos.indexOf(caracter) !== -1 || tecla_especial;
             }
 
             function limita(maximoCaracteres) {
-                var elemento = document.getElementById("texto");
-                if (elemento.value.length >= maximoCaracteres) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
+                const elemento = document.getElementById("texto");
+                return elemento.value.length < maximoCaracteres;
             }
             function validacion() {
+                let errores = ""; // Variable para almacenar los mensajes de error
 
-                //validamos campo1
-                valor1 = document.getElementById("Nombre_empleado").value;
-                if (valor1 == null || valor1.length == 0 || /^\s+$/.test(valor1))
-                {
-                    alert("*Campo vacio... Debes coloar Nombre");
-                    //return false; 
-                }
-                //validamos campo2
-                valor2 = document.getElementById("password").value;
-
-                if (isNaN(valor2)) {
-                    alert("*Campo vacio...Indica un acontraseña");
-                    //return false; 
+                // Validamos campo1 (Nombre)
+                const valor1 = document.getElementById("Nombre_empleado").value;
+                if (valor1 == null || valor1.length === 0 || /^\s+$/.test(valor1)) {
+                    errores += "*Campo vacio... Debes colocar Nombre\n";
                 }
 
-                valor3 = document.getElementById("Apell_pat_empleado").value;
-
-                if (isNaN(valor3)) {
-                    alert("*Campo vacio...Coloca apellido");
-                    //return false; 
+                // Validamos campo2 (Contraseña)
+                const valor2 = document.getElementById("password").value;
+                if (valor2 == null || valor2.length === 0 || /^\s+$/.test(valor2)) {
+                    errores += "*Campo vacio... Debes colocar una contraseña\n";
                 }
 
-                valor4 = document.getElementById("Apell_mat_empleado").value;
-
-                if (isNaN(valor4)) {
-                    alert("*Campo vacio...coloca apellido");
-                    //return false; 
+                // Validamos campo3 (Apellido paterno)
+                const valor3 = document.getElementById("Apell_pat_empleado").value;
+                if (valor3 == null || valor3.length === 0 || /^\s+$/.test(valor3)) {
+                    errores += "*Campo vacio... Debes colocar apellido paterno\n";
                 }
 
-                valor5 = document.getElementById("Fec_nac").value;
-
-                if (isNaN(valor5)) {
-                    alert("*Campo vacio...Indica la Fecha");
-                    //return false; 
+                // Validamos campo4 (Apellido materno)
+                const valor4 = document.getElementById("Apell_mat_empleado").value;
+                if (valor4 == null || valor4.length === 0 || /^\s+$/.test(valor4)) {
+                    errores += "*Campo vacio... Debes colocar apellido materno\n";
                 }
 
-                valor6 = document.getElementById("RFCE").value;
-
-                if (isNaN(valor6)) {
-                    alert("*Campo vacio...Indica su RFCE");
-                    //return false; 
-                }
-                valor7 = document.getElementById("Salario").value;
-
-                if (isNaN(valor7)) {
-                    alert("*Campo vacio...Salario");
-                    //return false; 
+                // Validamos campo5 (Fecha de nacimiento)
+                const valor5 = document.getElementById("Fec_nac").value;
+                if (valor5 == null || valor5.length === 0 || /^\s+$/.test(valor5)) {
+                    errores += "*Campo vacio... Debes colocar la fecha de nacimiento\n";
                 }
 
-                //validamos select
-                indice1 = document.getElementById("Edo_civil").selectedIndex;
-                if (indice1 == null || indice1 == 0) {
-                    alert("*No se ha seleccionado Estado Civil");
-                    //return false;
+                // Validamos campo6 (RFC)
+                const valor6 = document.getElementById("RFCE").value;
+                if (valor6 == null || valor6.length === 0 || /^\s+$/.test(valor6)) {
+                    errores += "*Campo vacio... Debes colocar el RFC\n";
                 }
 
-                //validamos select
-                indice2 = document.getElementById("Estatus_emp").selectedIndex;
-                if (indice2 == null || indice2 == 0) {
-                    alert("*No se ha seleccionado estatus");
-                    //return false;
-                }
-                //validamos select
-                indice3 = document.getElementById("Nivel").selectedIndex;
-                if (indice3 == null || indice3 == 0) {
-                    alert("*No se ha seleccionado Nivel de estudios");
-                    //return false;
+                // Validamos campo7 (Salario)
+                const valor7 = document.getElementById("Salario").value;
+                if (valor7 == null || valor7.length === 0 || isNaN(valor7)) {
+                    errores += "*Campo vacio o inválido... Debes colocar un salario válido\n";
                 }
 
-                //validamos select
-                indice4 = document.getElementById("tipoUsuario").selectedIndex;
-                if (indice4 == null || indice4 == 0) {
-                    alert("*No se ha seleccionado tipo de Usuario");
-                    //return false;
+                // Validamos select (Estado Civil)
+                const indice1 = document.getElementById("Edo_civil").value;
+                if (indice1 == null || indice1 === 0) {
+                    errores += "*No se ha seleccionado Estado Civil\n";
                 }
 
+                // Validamos select (Estatus)
+                const indice2 = document.getElementById("Estatus_emp").value;
+                if (indice2 == null || indice2 === 0) {
+                    errores += "*No se ha seleccionado Estatus\n";
+                }
 
+                // Validamos select (Nivel de estudios)
+                const indice3 = document.getElementById("Nivel").value;
+                if (indice3 == null || indice3 === 0) {
+                    errores += "*No se ha seleccionado Nivel de estudios\n";
+                }
+
+                // Validamos select (Tipo de Usuario)
+                const indice4 = document.getElementById("tipoUsuario").value;
+                if (indice4 == null || indice4 === 0) {
+                    errores += "*No se ha seleccionado tipo de Usuario\n";
+                }
+
+                // Si hay errores, mostramos todos en una alerta
+                if (errores !== "") {
+                    alert(errores);
+                    return false; // Detenemos el envío del formulario
+                }
             }
+
         </script>
 
 
@@ -194,7 +185,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="Edo_civil" name="estadoCivil"> 
+                            <label for="Edo_civil"></label><select id="Edo_civil" name="estadoCivil">
                                 <option value="Soltero">Soltero</option>
                                 <option value="Casado">Casado</option>
                                 <option value="Divorciado">Divorciado</option>
@@ -204,7 +195,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="Estatus_emp" name="estatus"> 
+                            <label for="Estatus_emp"></label><select id="Estatus_emp" name="estatus">
                                 <option value="Laborando">Laborando</option>
                                 <option value="Desempleado">Desempleado</option>
                                 <option value="Periodo Vacacional">Periodo Vacacional</option>
@@ -214,7 +205,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="Nivel" name="nivelEstudio">
+                            <label for="Nivel"></label><select id="Nivel" name="nivelEstudio">
                                 <option value="Sin estudios">Sin estudios</option> 
                                 <option value="Primaria">Primaria</option>
                                 <option value="Secundaria">Secundaria</option>
@@ -226,7 +217,7 @@
 
                     <tr>
                         <td>
-                            <select id="tipoUsuario" name="tipoUsuario"> 
+                            <label for="tipoUsuario"></label><select id="tipoUsuario" name="tipoUsuario">
                                 <option value="Administrador">Administrador</option>
                                 <option value="Empleado">Empleado</option>
                             </select>
@@ -282,7 +273,7 @@
                     <td><%= empleado.getNivelEstudio()%></td>
                     <td><%= empleado.getTipoUsuario()%></td>
                 </tr>
-            <h2>Producto agregado</h2>
+            <h2>Empleado agregado</h2>
         </tbody>
     </table> 
     <a href="EliminarEmpleado.jsp">Regresar</a>

@@ -22,7 +22,6 @@
         <form>
             <HR> 
             <I>Para eliminar un empleado seleccionarlo en la columna final <a href="AutentificarAdmon.jsp">  Cerrar Sesion</a></I>.
-            </HR>
             <table border="1">
                 <thead>
                     <tr>
@@ -56,7 +55,9 @@
                         <td><%= a.getEstatus()%></td>
                         <td><%= a.getNivelEstudio()%></td>
                         <td><%= a.getTipoUsuario()%></td>
-                        <td><input type="checkbox" name="cbactores" value="<%=a.getNoEmpleado()%>"/></td>
+                        <td><label>
+                            <input type="checkbox" name="cbactores" value="<%=a.getNoEmpleado()%>"/>
+                        </label></td>
                     </tr>
                     <% }
                     %>
@@ -69,19 +70,25 @@
         <%
             if (request.getParameter("eliminar") != null) {
                 String[] chbEmpleados = request.getParameterValues("cbactores");
-                for (int i = 0; i < chbEmpleados.length; i++) {
-                    out.println("<li>" + chbEmpleados[i]);
-                    empleadoDAO.eliminaEmpleado(Short.valueOf(chbEmpleados[i]));
-                    out.println(" El empleado ha sido eliminado");
+                if (chbEmpleados == null || chbEmpleados.length == 0) {
+        %>
+        <script>
+            alert("Por favor selecciona un empleado para eliminar.");
+        </script>
+        <%
+        } else {
+            for (String chbEmpleado : chbEmpleados) {
+                empleadoDAO.eliminaEmpleado(Short.parseShort(chbEmpleado));
+            }
+        %>
+        <script>
+            window.location.reload(); // Recargar la página después de la eliminación
+        </script>
+        <%
                 }
             }
-            //String[] chbEmpleados = request.getParameterValues("cbactores");
-            //for ( int i = 0; i <= chbEmpleados.length; i++ ) {
-              //              if ( i == 0 ) {
-                //                out.println("Por favor, selecciona un empleado para eliminar");
-                  //          }
-            //}
         %>
+
     </body>
 </html>
     
