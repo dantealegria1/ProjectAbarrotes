@@ -32,7 +32,7 @@
                 </div>
 
         <% ProductoDAO productoDAO = new ProductoDAO();
-            List<Producto> listaproductos = productoDAO.obtenListaProducto();
+            List<Producto> listaproductos = productoDAO.obtenListaProducto("");
 
             ClienteDAO clienteDAO = new ClienteDAO();
             List<Cliente> listaclientes = clienteDAO.obtenListaCliente();
@@ -91,8 +91,8 @@
                         String[] chbproductos = request.getParameterValues("cbactores");
                         for (int i = 0; i <= chbproductos.length; i++) {
                             if (i == chbproductos.length) {
-                                compra = listaclientes.get(i - 1).getCarrito() - listaproductos.get(i - 1).getExistencias().intValue();
-                                listaclientes.get(i - 1).setCarrito(compra);
+                                compra = listaclientes.get(i - 1).getCarrito() - listaproductos.get(i - 1).getExistencias();
+                                listaclientes.get(i - 1).setCarrito(Integer.valueOf(String.valueOf(compra)));
                                 //listaclientes.remove(i - 1).getCarrito();
                                 out.println("*Compra efectuada*  " + "Carrito actual: " + compra);
                                 //var1.setExistencias(var1.getExistencias() - 1);

@@ -1,4 +1,4 @@
-œ<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="Beans.ClienteDAO" %>
 <%@page import="Mapeos.Cliente" %>
 <jsp:useBean id="uname" scope="page" class="Mapeos.Cliente" />
@@ -33,9 +33,9 @@
                     <tbody>
                         <tr>
                             <td>Usuario</td>
-                            <td><input type="text" name="usuario" valßue="" /></td>
+                            <td><input type="text" name="usuario" value="" /></td>
                         </tr>
-                        <tr>œ
+                        <tr>
                             <td>Password</td>
                             <td><input type="password" name="contrasenia" value="" /></td>
                         </tr>
@@ -60,8 +60,8 @@
             for (i = 0; i < listaClientes.size(); i++) {
                 uname.setNombre(request.getParameter("usuario"));
                 uname.setPassword(request.getParameter("contrasenia"));
-                if ((uname.getNombre().toString().equals(listaClientes.get(i).getNombre().toString()))
-                        && (uname.getPassword().toString().equals(listaClientes.get(i).getPassword().toString()))) {
+                if ((uname.getNombre().equals(listaClientes.get(i).getNombre()))
+                        && (uname.getPassword().equals(listaClientes.get(i).getPassword().toString()))) {
                     us = true;
         %>
     <center>
@@ -73,11 +73,11 @@
     %>
     <center>
         <h3>NO TIENES UNA CUENTA, CREALA AHORA MISMO...</h3>
-        <a href="InsertarCliente.html">Crear cuenta</a>
+        <a href="InsertarCliente.jsp">Crear cuenta</a>
     </center>
     <%            }
         }
-        if (us == false) {
+        if (!us) {
     %>
     <center>
         <h3>Es posible que el usuario y/ó contraseña sean incorrectos.</h3>

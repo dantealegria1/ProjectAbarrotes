@@ -21,6 +21,7 @@
     <!-- Mapeo de clases -->
     <mapping class="Mapeos.Producto"/>
     <mapping class="Mapeos.Empleado" />
+    <mapping class="Mapeos.Cliente" />
 
   </session-factory>
 

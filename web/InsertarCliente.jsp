@@ -121,8 +121,9 @@
                     <td><%= cliente.getRfc() %></td>
                     <td><%= cliente.getCorreo() %></td>
                     <td><%= cliente.getPassword() %></td>
-                    <td><%= cliente.getDireccion() %></td>
-                    <td><%= cliente.getTelefono() %></td>
+
+<%--                    <td><%= cliente.getDireccion() %></td>--%>
+<%--                    <td><%= cliente.getTelefono() %></td>--%>
                 </tr>
             <h2>Registro completado</h2>
         </tbody>

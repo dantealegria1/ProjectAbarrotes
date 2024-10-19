@@ -1,26 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Beans;
 
 import Hibernate.HibernateUtil;
 import Mapeos.Cliente;
-import Mapeos.Empleado;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-/**
- *
- * @author Search
- */
 public class ClienteDAO {
     private Session sesion;
     private Transaction tx;
 
-    public int guardarCliente(Mapeos.Cliente cliente) throws HibernateException {
+    public int guardarCliente(Cliente cliente) throws HibernateException {
         int id = -1;
         try {
             iniciaOperacion();
@@ -28,12 +19,8 @@ public class ClienteDAO {
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         } finally {
-            sesion.close();
+            finalizaOperacion();
         }
         return id;
     }
@@ -47,7 +34,7 @@ public class ClienteDAO {
         } catch (HibernateException he) {
             manejaExcepcion(he);
         } finally {
-            sesion.close();
+            finalizaOperacion();
         }
     }
 
@@ -57,67 +44,71 @@ public class ClienteDAO {
             iniciaOperacion();
             cliente = (Cliente) sesion.get(Cliente.class, ID_Cliente);
         } finally {
-            sesion.close();
+            finalizaOperacion();
         }
         return cliente;
     }
 
     public List<Cliente> obtenListaCliente() throws HibernateException {
         List<Cliente> listaClientes = null;
-
         try {
             iniciaOperacion();
             listaClientes = sesion.createQuery("from Cliente").list();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
         } finally {
-            sesion.close();
+            finalizaOperacion();
         }
         return listaClientes;
     }
 
-    public int actualizaCliente(Mapeos.Cliente carrito) throws HibernateException {
+    public Cliente obtenClientePorId(int id) throws HibernateException {
+        Cliente cliente = null;
         try {
             iniciaOperacion();
-            sesion.update(carrito);
+            cliente = (Cliente) sesion.get(Cliente.class, id); // Busca por ID usando el método get
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+        } finally {
+            finalizaOperacion();
+        }
+        return cliente;
+    }
+
+
+    public int actualizaCliente(Cliente cliente) throws HibernateException {
+        try {
+            iniciaOperacion();
+            sesion.update(cliente);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
-            throw he;
         } finally {
-            sesion.close();
+            finalizaOperacion();
         }
         return 0;
     }
 
-    /* forma de actualizar 2 */
-//    public void updateEmpleado(Integer NoEmpleado, String NombreEmpleado) {
-//        iniciaOperacion();
-//        try {
-//            Empleado empleado =
-//                    (Empleado) sesion.get(Empleado.class, NoEmpleado);
-//            Empleado.setFirstName(nombre);
-//            sesion.update(empleado);
-//            tx.commit();
-//        } catch (HibernateException he) {
-//            manejaExcepcion(he);
-//        } finally {
-//            sesion.close();
-//        }
-//    }
+    private void iniciaOperacion() {
+        try {
+            sesion = HibernateUtil.getSessionFactory().openSession();
+            tx = sesion.beginTransaction();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+        }
+    }
 
-    private void iniciaOperacion(){
-       try{
-           
-       
-        sesion = HibernateUtil.getSessionFactory().openSession();
-        tx = sesion.beginTransaction();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+    private void finalizaOperacion() {
+        if (sesion != null && sesion.isOpen()) {
+            sesion.close();
         }
     }
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
+        if (tx != null) {
+            tx.rollback();
+        }
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
     }
 }
+
