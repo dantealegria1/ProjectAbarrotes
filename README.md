@@ -44,8 +44,21 @@ ProjectAbarrotes/
 Crea una base de datos llamada `abarrotes_db` e importa las tablas necesarias. Un ejemplo de script SQL para crear una tabla podría ser:
 
 ```sql
-SHOW DATABASES;
 USE abarrotes_db;
+USE abarrotes_db;
+
+DROP TABLE IF EXISTS Pedido;
+DROP TABLE IF EXISTS Paquete;
+DROP TABLE IF EXISTS Producto;
+DROP TABLE IF EXISTS Cliente;
+DROP TABLE IF EXISTS Empresa;
+DROP TABLE IF EXISTS Empleado;
+
+CREATE TABLE Estado (
+                        idEstado INT AUTO_INCREMENT PRIMARY KEY,
+                        nombreEstado VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE Producto (
                           idProducto INT AUTO_INCREMENT PRIMARY KEY,
                           nombreProducto VARCHAR(255) NOT NULL,
@@ -57,31 +70,117 @@ CREATE TABLE Producto (
                           existencias INT,
                           fech DATE,
                           marca VARCHAR(100),
-                          idProveedor INT,
-                          idPaquete INT, -- Clave foránea para la tabla Paquete
-                          idInventario INT -- Clave foránea para la tabla Inventario
+                          idProveedor INT NOT NULL
 );
--- Producto prueba
-INSERT INTO Producto (nombreProducto, descripcion, presentacion, caducidad, precioProv, precioUni, existencias, fech, marca, idProveedor, idPaquete, idInventario)
-VALUES (
-           'Galletas de Chocolate',
-           'Galletas con chispas de chocolate',
-           'Paquete de 200g',
-           '2025-12-31',
-           10.50,
-           15.00,
-           100,
-           '2024-10-11',
-           'MarcaGenérica',
-           1,
-           1,
-           1
-       );
 
-SELECT * FROM abarrotes_db.Producto;
+CREATE TABLE Proveedor (
+                           idProveedor INT AUTO_INCREMENT PRIMARY KEY,
+                           nombreProveedor VARCHAR(255) NOT NULL,
+                           apellPatProveedor VARCHAR(255) NOT NULL,
+                           apellMatProveedor VARCHAR(255) NOT NULL,
+                           idEmpresa INT NOT NULL,
+                           FOREIGN KEY (idEmpresa) REFERENCES Empresa(idEmpresa)
+);
 
+CREATE TABLE Inventario (
+                            idInventario INT AUTO_INCREMENT PRIMARY KEY,
+                            id_estado INT NOT NULL,
+                            fechaInv VARCHAR(50),
+                            entradap INT,
+                            salidap INT,
+                            saldop INT,
+                            entradac FLOAT,
+                            salidac FLOAT,
+                            saldoc FLOAT,
+                            costop FLOAT,
+                            precio FLOAT,
+                            idProducto INT NOT NULL,
+                            FOREIGN KEY (id_estado) REFERENCES Estado(idEstado)
+);
 
-describe Producto
+CREATE TABLE Empleado (
+                          noEmpleado INT PRIMARY KEY AUTO_INCREMENT,
+                          nombreEmpleado VARCHAR(100) NOT NULL,
+                          password VARCHAR(100) NOT NULL,
+                          apellPatEmpleado VARCHAR(100) NOT NULL,
+                          apellMatEmpleado VARCHAR(100) NOT NULL,
+                          fechaNac DATE NOT NULL,
+                          rfce VARCHAR(13) NOT NULL,
+                          salario DECIMAL(10, 2) NOT NULL,
+                          estadoCivil VARCHAR(20),
+                          estatus VARCHAR(20),
+                          nivelEstudio VARCHAR(50),
+                          tipoUsuario VARCHAR(50)
+);
+
+CREATE TABLE Cliente (
+                         idCliente INT AUTO_INCREMENT PRIMARY KEY,
+                         nombre VARCHAR(255) NOT NULL,
+                         apellPat VARCHAR(255) NOT NULL,
+                         apellMat VARCHAR(255) NOT NULL,
+                         fechaNac DATE NOT NULL,
+                         rfc VARCHAR(13) NOT NULL UNIQUE,
+                         correo VARCHAR(255) NOT NULL UNIQUE,
+                         password VARCHAR(255) NOT NULL,
+                         direccion TEXT NOT NULL,
+                         telefono VARCHAR(15) NOT NULL,
+                         carrito INT NOT NULL
+);
+
+CREATE TABLE Empresa (
+                         idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
+                         nombre VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Paquete (
+                         idPaquete INT AUTO_INCREMENT PRIMARY KEY,
+                         idCliente INT NOT NULL,
+                         idProducto INT NOT NULL,
+                         cantidad INT,
+                         FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
+                         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
+);
+
+CREATE TABLE Pedido (
+                        idPedido INT AUTO_INCREMENT PRIMARY KEY,
+                        idCliente INT NOT NULL,
+                        fecha DATE NOT NULL,
+                        observaciones TEXT,
+                        edoPedido VARCHAR(50),
+                        idInventario INT,
+                        idPaquete INT,
+                        FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
+                        FOREIGN KEY (idInventario) REFERENCES Inventario(idInventario),
+                        FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+);
+
+INSERT INTO Producto (nombreProducto, descripcion, presentacion, caducidad, precioProv, precioUni, existencias, fech, marca, idProveedor)
+VALUES ('Laptop Dell', 'Laptop con procesador i7 y 16GB RAM', 'Caja', '2025-12-01', 15000.50, 18000.99, 10, '2024-10-19', 'Dell', 1);
+
+INSERT INTO Inventario (id_estado, fechaInv, entradap, salidap, saldop, entradac, salidac, saldoc, costop, precio, idProducto)
+VALUES (1, '2024-10-19', 50, 5, 45, 100.50, 50.25, 50.25, 15000.50, 18000.99, 1);
+
+INSERT INTO Empleado (nombreEmpleado, password, apellPatEmpleado, apellMatEmpleado, fechaNac, rfce, salario, estadoCivil, estatus, nivelEstudio, tipoUsuario)
+VALUES ('Juan', 'pass1234', 'Perez', 'Garcia', '1990-05-12', 'PERJ900512HD3', 25000.00, 'Soltero', 'Activo', 'Licenciatura', 'Admin');
+
+INSERT INTO Cliente (nombre, apellPat, apellMat, fechaNac, rfc, correo, password, direccion, telefono, carrito)
+VALUES ('Carlos', 'Martinez', 'Lopez', '1985-11-20', 'M5112FRNS08', 'carlos.martinez@gmail.com', 'password123', 'Calle Falsa 123', '5512345678', 2);
+
+INSERT INTO Empresa (nombre)
+VALUES ('TechStore S.A.');
+
+INSERT INTO Estado (nombreEstado)
+VALUES ('Aguascalientes');
+
+INSERT INTO Paquete (idCliente, idProducto, cantidad)
+VALUES (1, 1, 2);
+
+INSERT INTO Pedido (idCliente, fecha, observaciones, edoPedido, idInventario, idPaquete)
+VALUES (1, '2024-10-19', 'Entrega a domicilio', 'Pendiente', 2, 4);
+
+SELECT * FROM Cliente;
+SELECT * FROM Empleado;
+SELECT * FROM Empleado LIMIT 1;
 ```
 
 Asegúrate de tener el archivo `database.properties` configurado correctamente en el directorio `src/main/resources/`. Ejemplo:
