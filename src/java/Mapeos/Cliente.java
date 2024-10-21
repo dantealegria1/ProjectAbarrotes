@@ -37,9 +37,9 @@ public class Cliente implements Serializable {
     private String direccion;
 
     @Column(name = "telefono", nullable = false)
-    private Integer telefono;
+    private String telefono;
 
-    @Column(name = "carrito", nullable = false)
+    @Column(name = "carrito")
     private Integer carrito;
 
 
@@ -56,7 +56,7 @@ public class Cliente implements Serializable {
 
     // Constructor con parámetros
     public Cliente(String nombre, String apellPat, String apellMat, String fechaNac, String rfc, String correo, String password, String direccion,Integer telefono,
-                    Integer carrito ,Paquete paquete, Pedido pedido) {
+                    Integer carrito) {
         this.nombre = nombre;
         this.apellPat = apellPat;
         this.apellMat = apellMat;
@@ -65,7 +65,7 @@ public class Cliente implements Serializable {
         this.correo = correo;
         this.password = password;
         this.direccion = direccion;
-        this.telefono = telefono;
+        this.telefono = String.valueOf(telefono);
         this.carrito = carrito;
 //        this.paquete = paquete;
 //        this.pedido = pedido;
@@ -141,7 +141,7 @@ public class Cliente implements Serializable {
         return direccion;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
@@ -154,16 +154,7 @@ public class Cliente implements Serializable {
     }
 
     public void setTelefono(String telefono) {
-        if (telefono != null && !telefono.isEmpty()) {
-            try {
-                this.telefono = Integer.valueOf(telefono);
-            } catch (NumberFormatException e) {
-                // Maneja el caso en que la cadena no es un número válido
-                this.telefono = 0; // O cualquier otro valor predeterminado
-            }
-        } else {
-            this.telefono = 0; // O un valor por defecto si es null o está vacío
-        }
+        this.telefono = String.valueOf(Integer.valueOf(telefono));
     }
 
     public void setCarrito(Integer carrito) {

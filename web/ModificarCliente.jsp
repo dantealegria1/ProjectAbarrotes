@@ -132,7 +132,7 @@
         cliente.setPassword(request.getParameter("password"));
         cliente.setDireccion(request.getParameter("direccion"));
         cliente.setTelefono(request.getParameter("telefono"));
-        cliente.setCarrito(request.getParameter("carrito"));
+        cliente.setCarrito(Integer.valueOf(request.getParameter("carrito")));
 
         try {
             clienteDAO.actualizaCliente(cliente);
