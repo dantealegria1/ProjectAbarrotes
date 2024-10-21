@@ -157,7 +157,7 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 ## Databases
 - [x] Empleados
 - [x] Productos
-- [ ] Clientes
+- [X] Clientes
 - [ ] Pedido
 - [ ] Inventario
 - [ ] Estado
@@ -173,4 +173,5 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 
 Este **README** proporciona una guía completa para configurar y ejecutar tu proyecto **ProjectAbarrotes** en **Tomcat** usando **IntelliJ**.
 
-![Captura de pantalla 2024-10-12 195635](https://github.com/user-attachments/assets/7075944c-5406-4168-a161-9d339ab1cfe8)
+![image](https://github.com/user-attachments/assets/b16c46a0-b5b2-4b56-b574-4d0029a138e4)
+
