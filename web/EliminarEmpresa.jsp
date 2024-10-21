@@ -49,6 +49,7 @@
     </table>
     <input type="submit" value="Eliminar Seleccionados" name="eliminar" />
     <input type="button" onclick=" location.href='ModificarEmpresa.jsp' " value="Actualizar Empresa" name="boton" />
+    <input type="button" onclick=" location.href = 'InsertarEmpresa.jsp' " value="Nueva Empresa" name="boton" />
 </form>
 <%
     if (request.getParameter("eliminar") != null) {
@@ -60,5 +61,8 @@
         }
     }
 %>
+<script>
+    window.location.reload(); // Recargar la página después de la eliminación
+</script>
 </body>
 </html>

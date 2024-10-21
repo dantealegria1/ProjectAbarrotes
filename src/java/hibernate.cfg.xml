@@ -22,6 +22,7 @@
     <mapping class="Mapeos.Producto"/>
     <mapping class="Mapeos.Empleado" />
     <mapping class="Mapeos.Cliente" />
+    <mapping class="Mapeos.Empresa" />
 
   </session-factory>
 

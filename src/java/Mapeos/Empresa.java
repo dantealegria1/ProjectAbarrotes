@@ -17,7 +17,9 @@ public class Empresa  implements java.io.Serializable {
      private Integer idEmpresa;
     @Column(name="nombre")
      private String nombreEmpresa;
+    @Column(name="razonSocial")
      private String razonSocial;
+    @Column(name="giro")
      private String giro;
 
     public Empresa() {
@@ -57,9 +59,6 @@ public class Empresa  implements java.io.Serializable {
     public void setGiro(String giro) {
         this.giro = giro;
     }
-
-
-
 
 }
 
