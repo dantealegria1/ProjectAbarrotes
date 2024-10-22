@@ -39,7 +39,7 @@
                 // (teclas de borrado y flechas horizontales)
                 var tecla_especial = false;
                 for (var i in teclas_especiales) {
-                    if (codigoCaracter == teclas_especiales[i]) {
+                    if (codigoCaracter === teclas_especiales[i]) {
                         tecla_especial = true;
                         break;
                     }
@@ -59,85 +59,72 @@
                 }
             }
             function validacion() {
+                var errores = "";  // Variable para almacenar los mensajes de error
 
-                //validamos campo1
-                valor1 = document.getElementById("Nombre").value;
-                if (valor1 == null || valor1.length == 0 || /^\s+$/.test(valor1))
-                {
-                    alert("*Falta ingresar nombre");
-                    //return false; 
-                }
-                //validamos campo2
-                valor2 = document.getElementById("Apell_pat").value;
-
-                if (isNaN(valor2)) {
-                    alert("*Ingresa Apellido");
-                    //return false; 
+                // Validamos campo1 (Nombre)
+                var valor1 = document.getElementById("Nombre").value;
+                if (valor1 == null || valor1.length == 0 || /^\s+$/.test(valor1)) {
+                    errores += "* Falta ingresar nombre\n";
                 }
 
-                valor3 = document.getElementById("Apell_pat").value;
-
-                if (isNaN(valor3)) {
-                    alert("*Ingresa Apellido");
-                    //return false; 
+                // Validamos campo2 (Apellido Paterno)
+                var valor2 = document.getElementById("Apell_pat").value;
+                if (valor2 == null || valor2.length == 0 || /^\s+$/.test(valor2)) {
+                    errores += "* Falta ingresar apellido paterno\n";
                 }
 
-                valor4 = document.getElementById("Fecha_nac").value;
-
-                if (isNaN(valor4)) {
-                    alert("*Ingresa Fecha de nacimiento");
-                    //return false; 
+                // Validamos campo3 (Apellido Materno)
+                var valor3 = document.getElementById("Apell_mat").value;
+                if (valor3 == null || valor3.length == 0 || /^\s+$/.test(valor3)) {
+                    errores += "* Falta ingresar apellido materno\n";
                 }
 
-                valor5 = document.getElementById("RFC").value;
-
-                if (isNaN(valor5)) {
-                    alert("*Ingresa RFC");
-                    //return false; 
-                }
-                valor6 = document.getElementById("correo").value;
-
-                if (isNaN(valor6)) {
-                    alert("*Ingresa e-mail");
-                    //return false; 
+                // Validamos campo4 (Fecha de nacimiento)
+                var valor4 = document.getElementById("Fecha_nac").value;
+                if (valor4 == null || valor4.length == 0 || /^\s+$/.test(valor4)) {
+                    errores += "* Falta ingresar fecha de nacimiento\n";
                 }
 
-
-                valor7 = document.getElementById("password").value;
-
-                if (isNaN(valor7)) {
-                    alert("*Ingresa Contraseña");
-                    //return false; 
+                // Validamos campo5 (RFC)
+                var valor5 = document.getElementById("RFC").value;
+                if (valor5 == null || valor5.length == 0 || /^\s+$/.test(valor5)) {
+                    errores += "* Falta ingresar RFC\n";
                 }
 
-                valor8 = document.getElementById("direccion").value;
-
-                if (isNaN(valor8)) {
-                    alert("*Ingresa Direccion");
-                    //return false; 
-                }
-                valor9 = document.getElementById("telefono").value;
-
-                if (isNaN(valor9)) {
-                    alert("*Ingresa Teefono");
-                    //return false; 
-                }
-
-                //validar email
+                // Validamos campo6 (Correo)
                 email = document.getElementById("correo").value;
-                if (!(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(email))) {
+                var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailPattern.test(email)) {
                     alert("*Email incorrecto");
-                    //return false;
+                    return false;
                 }
 
 
-                //validar numero de telefono
-                telefono = document.getElementById("telefono").value;
-                if (!(/^\d{9}$/.test(telefono))) {
-                    alert("*Telefono no valido");
-                    //return false; 
+                // Validamos campo7 (Contraseña)
+                var valor7 = document.getElementById("Password").value;
+                if (valor7 == null || valor7.length == 0 || /^\s+$/.test(valor7)) {
+                    errores += "* Falta ingresar contraseña\n";
                 }
 
+                // Validamos campo8 (Dirección)
+                var valor8 = document.getElementById("direccion").value;
+                if (valor8 == null || valor8.length == 0 || /^\s+$/.test(valor8)) {
+                    errores += "* Falta ingresar dirección\n";
+                }
+
+                // Validamos campo9 (Teléfono)
+                var valor9 = document.getElementById("telefono").value;
+                if (!(/^\d{10}$/.test(valor9))) {
+                    errores += "* Teléfono no válido (debe ser de 10 dígitos)\n";
+                }
+
+                // Si hay errores, mostramos el mensaje con todos los errores
+                if (errores.length > 0) {
+                    alert(errores);
+                    return false;  // Detenemos el envío del formulario
+                }
+
+                return true;  // Enviamos el formulario si no hay errores
             }
         </script>
     </head>
@@ -249,8 +236,8 @@
                     <th>RFC</th>
                     <th>Email</th>
                     <th>Contraseña</th>
-                    <%--<th>Dirección</th>
-                    <th>Telefono</th>--%>
+                    <th>Dirección</th>
+                    <th>Telefono</th>
                 </tr>
             </thead>
             <tbody>
@@ -263,8 +250,8 @@
                     <td><%= cliente.getRfc()%></td>
                     <td><%= cliente.getCorreo()%></td>
                     <td><%= cliente.getPassword()%></td>
-                    <%--<td><%= cliente.getDireccion()%></td>
-                    <td><%= cliente.getTelefono()%></td>--%>
+                    <td><%= cliente.getDireccion()%></td>
+                    <td><%= cliente.getTelefono()%></td>
                 </tr>
             <h2>Registro completado</h2>
         </tbody>

@@ -103,4 +103,22 @@ public class EmpleadoDAO {
             }
         }
     }
+
+    public Empleado obtenEmpleadoPorId(int empleadoId) {
+        Empleado empleado = null;
+        try {
+            iniciaOperacion();
+            // Usar HQL para buscar un empleado por su ID
+            empleado = (Empleado) sesion.createQuery("FROM Empleado WHERE noEmpleado = :empleadoId")
+                    .setParameter("empleadoId", empleadoId)
+                    .uniqueResult();  // Devuelve un único resultado o null si no se encuentra
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+        } finally {
+            if (sesion != null && sesion.isOpen()) {
+                sesion.close();
+            }
+        }
+        return empleado;  // Devuelve el empleado encontrado o null
+    }
 }

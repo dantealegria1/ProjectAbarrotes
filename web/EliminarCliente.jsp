@@ -67,12 +67,17 @@
         <%
             if (request.getParameter("eliminar") != null) {
                 String[] chbClientes = request.getParameterValues("cbactores");
-                for (int i = 0; i < chbClientes.length; i++) {
-                    out.println("<li>" + chbClientes[i]);
-                    clienteDAO.eliminaCliente(Short.valueOf(chbClientes[i]));
-                    out.println(" El cliente ha sido eliminado");
+                if (chbClientes != null) {
+                    for (String chbCliente : chbClientes) {
+                        out.println("<li>" + chbCliente);
+                        clienteDAO.eliminaCliente(Short.parseShort(chbCliente));
+                        out.println(" El cliente ha sido eliminado");
+                    }
                 }
+                // Redirige a la misma página para recargarla
+                response.sendRedirect("EliminarCliente.jsp");
             }
         %>
+
     </body>
 </html>
