@@ -22,7 +22,7 @@
     EmpresaDAO empresaDAO = new EmpresaDAO();
     List<Empresa> listaEmpresas = empresaDAO.obtenListaEmpresa();
 %>
-<form>
+<form method="post">
     <HR>
     <I>Para eliminar una empresa, seleccionarla en la columna final. <a href="AutentificarEmpleado.jsp">Cerrar Sesión</a></I>.
     </HR>
@@ -54,15 +54,14 @@
 <%
     if (request.getParameter("eliminar") != null) {
         String[] chbEmpresas = request.getParameterValues("cbempresas");
-        for (int i = 0; i < chbEmpresas.length; i++) {
-            out.println("<li>" + chbEmpresas[i]);
-            empresaDAO.eliminaEmpresa(Integer.valueOf(chbEmpresas[i]));
-            out.println(" La empresa ha sido eliminada");
+        if (chbEmpresas != null) {
+            for (int i = 0; i < chbEmpresas.length; i++) {
+                empresaDAO.eliminaEmpresa(Integer.valueOf(chbEmpresas[i]));
+            }
+            // Recargar la página después de la eliminación
+            out.println("<script>window.location.reload();</script>");
         }
     }
 %>
-<script>
-    window.location.reload(); // Recargar la página después de la eliminación
-</script>
 </body>
 </html>

@@ -29,7 +29,7 @@
                 <th>Seleccionar</th>
             </tr>
             </thead>
-            <%  for (Empresa empresa : listaEmpresas) { %>
+            <% for (Empresa empresa : listaEmpresas) { %>
             <tr>
                 <td><%= empresa.getIdEmpresa()%></td>
                 <td><%= empresa.getNombreEmpresa()%></td>
@@ -83,12 +83,23 @@
         String nuevaRazonSocial = request.getParameter("razonSocial");
         String nuevoGiro = request.getParameter("giro");
 
-        empresaActualizada.setNombreEmpresa(nuevoNombre);
-        empresaActualizada.setRazonSocial(nuevaRazonSocial);
-        empresaActualizada.setGiro(nuevoGiro);
+        // Validar campos no vacíos
+        if (nuevoNombre != null && !nuevoNombre.isEmpty() &&
+                nuevaRazonSocial != null && !nuevaRazonSocial.isEmpty() &&
+                nuevoGiro != null && !nuevoGiro.isEmpty()) {
 
-        empresaDAO.actualizaEmpresa(empresaActualizada);
-        out.println("<h2>La empresa ha sido actualizada exitosamente.</h2>");
+            empresaActualizada.setNombreEmpresa(nuevoNombre);
+            empresaActualizada.setRazonSocial(nuevaRazonSocial);
+            empresaActualizada.setGiro(nuevoGiro);
+
+            empresaDAO.actualizaEmpresa(empresaActualizada);
+            out.println("<h2>La empresa ha sido actualizada exitosamente.</h2>");
+
+            // Redirigir a EliminarEmpresa.jsp después de la actualización
+            response.sendRedirect("EliminarEmpresa.jsp");
+        } else {
+            out.println("<h2>Por favor, completa todos los campos.</h2>");
+        }
     }
 %>
 </body>
