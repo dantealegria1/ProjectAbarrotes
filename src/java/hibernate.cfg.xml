@@ -23,6 +23,8 @@
     <mapping class="Mapeos.Empleado" />
     <mapping class="Mapeos.Cliente" />
     <mapping class="Mapeos.Empresa" />
+    <mapping class="Mapeos.Estado" />
+    <mapping class="Mapeos.Inventario" />
 
   </session-factory>
 
