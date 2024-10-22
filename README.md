@@ -261,7 +261,9 @@ com.intellij.javaee.oss.admin.jmx.JmxAdminException: com.intellij.execution.Exec
 - [ ] Inventario
 - [ ] Estado
 - [ ] Proveedor
-- [ ] Empresa
+- [X] Empresa
+
+Ver si es necesario si no ni para que
 - [ ] Paquete
 
 ## Autor
