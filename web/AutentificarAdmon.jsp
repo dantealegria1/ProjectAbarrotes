@@ -83,8 +83,8 @@
         <input type="button" onclick="location.href = 'EliminarEmpleado.jsp' " value="Empleados" name="boton" />
         <P><B>PORTAL PARA LA CONFIGURACION DE EMPRESAS</B> </P>
         <input type="button" onclick="location.href = 'EliminarEmpresa.jsp' " value="Empresa" name="boton" />
-        <P><B>PORTAL PARA LA CONFIGURACION DE PROVEDOR</B> </P>
-        <input type="button" onclick="location.href = 'EliminarProvedor.jsp' " value="Provedor" name="boton" />
+        <P><B>PORTAL PARA LA CONFIGURACION DE ESTADOS</B> </P>
+        <input type="button" onclick="location.href = 'EliminarEstado.jsp' " value="Estado" name="boton" />
     </center>
     <%  break;
     } else {
