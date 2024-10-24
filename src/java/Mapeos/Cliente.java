@@ -39,8 +39,8 @@ public class Cliente implements Serializable {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @Column(name = "carrito")
-    private Integer carrito;
+//    @Column(name = "carrito")
+//    private Integer carrito;
 
 
 //    @ManyToOne(fetch = FetchType.LAZY)
@@ -55,7 +55,7 @@ public class Cliente implements Serializable {
     public Cliente() {}
 
     // Constructor con parámetros
-    public Cliente(String nombre, String apellPat, String apellMat, String fechaNac, String rfc, String correo, String password, String direccion,Integer telefono,
+    public Cliente(String nombre, String apellPat, String apellMat, String fechaNac, String rfc, String correo, String password, String direccion,String telefono,
                     Integer carrito) {
         this.nombre = nombre;
         this.apellPat = apellPat;
@@ -65,8 +65,8 @@ public class Cliente implements Serializable {
         this.correo = correo;
         this.password = password;
         this.direccion = direccion;
-        this.telefono = String.valueOf(telefono);
-        this.carrito = carrito;
+        this.telefono = telefono;
+        //this.carrito = carrito;
 //        this.paquete = paquete;
 //        this.pedido = pedido;
     }
@@ -154,12 +154,12 @@ public class Cliente implements Serializable {
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = String.valueOf(Integer.valueOf(telefono));
+        this.telefono = telefono;
     }
 
-    public void setCarrito(Integer carrito) {
-        this.carrito = carrito;
-    }
+//    public void setCarrito(Integer carrito) {
+//        this.carrito = carrito;
+//    }
 
 //    public Paquete getPaquete() {
 //        return paquete;
