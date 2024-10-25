@@ -39,24 +39,16 @@ public class Cliente implements Serializable {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-//    @Column(name = "carrito")
-//    private Integer carrito;
-
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")
-//    private Paquete paquete;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
-//    private Pedido pedido;
-
     // Constructor por defecto
-    public Cliente() {}
+    public Cliente() {
+    }
+    public Cliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
     // Constructor con parámetros
-    public Cliente(String nombre, String apellPat, String apellMat, String fechaNac, String rfc, String correo, String password, String direccion,String telefono,
-                    Integer carrito) {
+    public Cliente(String nombre, String apellPat, String apellMat, String fechaNac, String rfc, String correo, String password, String direccion, String telefono,
+                   Integer carrito) {
         this.nombre = nombre;
         this.apellPat = apellPat;
         this.apellMat = apellMat;
@@ -66,9 +58,6 @@ public class Cliente implements Serializable {
         this.password = password;
         this.direccion = direccion;
         this.telefono = telefono;
-        //this.carrito = carrito;
-//        this.paquete = paquete;
-//        this.pedido = pedido;
     }
 
     // Getters y Setters
@@ -156,24 +145,4 @@ public class Cliente implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-//    public void setCarrito(Integer carrito) {
-//        this.carrito = carrito;
-//    }
-
-//    public Paquete getPaquete() {
-//        return paquete;
-//    }
-//
-//    public void setPaquete(Paquete paquete) {
-//        this.paquete = paquete;
-//    }
-//
-//    public Pedido getPedido() {
-//        return pedido;
-//    }
-//
-//    public void setPedido(Pedido pedido) {
-//        this.pedido = pedido;
-//    }
 }
