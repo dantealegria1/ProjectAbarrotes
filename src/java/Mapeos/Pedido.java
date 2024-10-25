@@ -32,17 +32,21 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
+    @Column(name="Costo",nullable = false)
+    private double costo;
+
     public Pedido(Cliente cliente, String observaciones, int idCliente) {
         this.cliente = cliente;
         this.observaciones = observaciones;
     }
 
-    public Pedido(Cliente cliente, String fecha, String observaciones, String edoPedido, int identificador) {
+    public Pedido(Cliente cliente, String fecha, String observaciones, String edoPedido, int identificador, double costo) {
         this.cliente = cliente;
         this.fecha = fecha;
         this.observaciones = observaciones;
         this.edoPedido = edoPedido;
         this.identificador = identificador;
+        this.costo = costo;
     }
 
     // Getters y Setters
@@ -94,4 +98,8 @@ public class Pedido implements Serializable {
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
     }
+
+    public double getCosto() {return costo;}
+
+    public void setCosto(double costo) {this.costo = costo;}
 }

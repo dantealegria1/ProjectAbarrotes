@@ -30,10 +30,11 @@
   session = request.getSession();
   Map<Producto, Integer> carrito = (Map<Producto, Integer>) session.getAttribute("carrito");
 
-  // Crear el objeto Paquete
+  // Crear el objeto Paquete y Pedido
   Paquete nuevoPaquete = new Paquete();
   Pedido nuevoPedido = new Pedido();
   int identificador = UUID.randomUUID().hashCode();
+
   // Asigna el cliente desde la sesión
   Integer clienteID = (Integer) session.getAttribute("clienteID");
   if (clienteID != null) {
@@ -44,44 +45,54 @@
     return;
   }
 
-  // Instancia el DAO
+  // Instancia los DAOs
   PaqueteDAO paqueteDAO = new PaqueteDAO();
-  ProductoDAO productoDAO = new ProductoDAO(); // Crear instancia de ProductoDAO
+  ProductoDAO productoDAO = new ProductoDAO();
   PedidoDAO pedidoDAO = new PedidoDAO();
+
+  // Inicializa el costo total
+  int costoTotal = 0;
 
   // Guardar los productos del carrito en el paquete
   if (carrito != null && !carrito.isEmpty()) {
     for (Map.Entry<Producto, Integer> entry : carrito.entrySet()) {
       Producto prod = entry.getKey();
       int cantidad = entry.getValue();
+      double precioUnitario = prod.getPrecioUni(); // Asume que el producto tiene el método getPrecioUnitario()
 
-      // Aquí puedes ajustar el objeto Paquete según tu modelo
+      // Calcula el subtotal de este producto y lo agrega al costo total
+      costoTotal += precioUnitario * cantidad;
+
+      // Configurar el paquete con los datos de producto y cantidad
       nuevoPaquete.setIdProducto(prod.getIdProducto());
       nuevoPaquete.setCantidad(cantidad);
       nuevoPaquete.setIdentificador(identificador);
-      // Guarda el paquete en la base de datos
       int idPaquete = paqueteDAO.guardaPaquete(nuevoPaquete);
       out.println("<p>Producto: " + prod.getNombreProducto() + " guardado con ID: " + idPaquete + "</p>");
 
       // Actualiza el stock del producto
-      productoDAO.actualizaStock(prod.getIdProducto(), cantidad); // Actualiza el stock
+      productoDAO.actualizaStock(prod.getIdProducto(), cantidad);
     }
 
     // Limpiar el carrito después de guardar
     carrito.clear();
     session.setAttribute("carrito", carrito);
 
+    // Configura los datos del pedido y lo guarda en la base de datos
     try {
       nuevoPedido.setIdentificador(identificador);
       nuevoPedido.setFecha(String.valueOf(LocalDate.now()));
       nuevoPedido.setObservaciones("Entregado");
       nuevoPedido.setEdoPedido("Entregado");
+      nuevoPedido.setCosto(costoTotal); // Asigna el costo total calculado
+
       int idPedido = pedidoDAO.guardarPedido(nuevoPedido);
+      out.println("<p>Pedido confirmado con ID: " + idPedido + " y costo total: $" + costoTotal + "</p>");
     } catch (Exception e) {
-      e.printStackTrace(); // Imprime la excepción en la consola para depuración
-      // Puedes agregar un mensaje o redirigir al usuario si es necesario
-      System.out.println("Ocurrió un error al procesar el pedido.");
+      e.printStackTrace();
+      out.println("<p>Ocurrió un error al procesar el pedido.</p>");
     }
+
     out.println("<p>Tu compra ha sido confirmada y el carrito ha sido limpiado.</p>");
   } else {
     out.println("<p>Error: Tu carrito está vacío.</p>");
