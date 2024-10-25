@@ -26,6 +26,7 @@
     <mapping class="Mapeos.Estado" />
     <mapping class="Mapeos.Inventario" />
     <mapping class="Mapeos.Paquete" />
+    <mapping class="Mapeos.Pedido" />
 
   </session-factory>
 

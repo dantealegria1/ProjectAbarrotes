@@ -21,15 +21,18 @@ public class Paquete implements java.io.Serializable {
     @Column(name = "idProducto", nullable = false)  // ID del producto
     private int idProducto;
 
+    @Column(name = "Identificador", nullable = false)
+    private int identificador;
     // Constructor por defecto
     public Paquete() {
     }
 
     // Constructor con parámetros
-    public Paquete(Cliente cliente, Integer cantidad, int idProducto) {
+    public Paquete(Cliente cliente, Integer cantidad, int idProducto, int identificador) {
         this.cliente = cliente;
         this.cantidad = cantidad;
         this.idProducto = idProducto;
+        this.identificador = identificador;
     }
 
     // Getters y Setters
@@ -63,5 +66,12 @@ public class Paquete implements java.io.Serializable {
 
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
     }
 }

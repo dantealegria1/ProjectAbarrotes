@@ -11,6 +11,10 @@
 <%@page import="java.util.Map"%>
 <%@ page import="Mapeos.Cliente" %>
 <%@ page import="Beans.ProductoDAO" %>
+<%@ page import="java.util.UUID" %>
+<%@ page import="Mapeos.Pedido" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="Beans.PedidoDAO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,11 +32,13 @@
 
   // Crear el objeto Paquete
   Paquete nuevoPaquete = new Paquete();
-
+  Pedido nuevoPedido = new Pedido();
+  int identificador = UUID.randomUUID().hashCode();
   // Asigna el cliente desde la sesión
   Integer clienteID = (Integer) session.getAttribute("clienteID");
   if (clienteID != null) {
     nuevoPaquete.setCliente(new Cliente(clienteID));
+    nuevoPedido.setCliente(new Cliente(clienteID));
   } else {
     out.println("<p>Error: No se ha encontrado el ID del cliente.</p>");
     return;
@@ -41,6 +47,7 @@
   // Instancia el DAO
   PaqueteDAO paqueteDAO = new PaqueteDAO();
   ProductoDAO productoDAO = new ProductoDAO(); // Crear instancia de ProductoDAO
+  PedidoDAO pedidoDAO = new PedidoDAO();
 
   // Guardar los productos del carrito en el paquete
   if (carrito != null && !carrito.isEmpty()) {
@@ -51,7 +58,7 @@
       // Aquí puedes ajustar el objeto Paquete según tu modelo
       nuevoPaquete.setIdProducto(prod.getIdProducto());
       nuevoPaquete.setCantidad(cantidad);
-
+      nuevoPaquete.setIdentificador(identificador);
       // Guarda el paquete en la base de datos
       int idPaquete = paqueteDAO.guardaPaquete(nuevoPaquete);
       out.println("<p>Producto: " + prod.getNombreProducto() + " guardado con ID: " + idPaquete + "</p>");
@@ -63,13 +70,25 @@
     // Limpiar el carrito después de guardar
     carrito.clear();
     session.setAttribute("carrito", carrito);
+
+    try {
+      nuevoPedido.setIdentificador(identificador);
+      nuevoPedido.setFecha(String.valueOf(LocalDate.now()));
+      nuevoPedido.setObservaciones("Entregado");
+      nuevoPedido.setEdoPedido("Entregado");
+      int idPedido = pedidoDAO.guardarPedido(nuevoPedido);
+    } catch (Exception e) {
+      e.printStackTrace(); // Imprime la excepción en la consola para depuración
+      // Puedes agregar un mensaje o redirigir al usuario si es necesario
+      System.out.println("Ocurrió un error al procesar el pedido.");
+    }
     out.println("<p>Tu compra ha sido confirmada y el carrito ha sido limpiado.</p>");
   } else {
     out.println("<p>Error: Tu carrito está vacío.</p>");
   }
 %>
 
-<a href="Ventas.jsp.jsp">Comprar de nuevo</a>
-<a href="Pedidos.jsp.jsp.jsp">Ver tus pedidos</a>
+<a href="Ventas.jsp">Comprar de nuevo</a>
+<a href="Pedidos.jsp">Ver tus pedidos</a>
 </body>
 </html>

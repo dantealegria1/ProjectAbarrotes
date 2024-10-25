@@ -26,10 +26,8 @@ public class Pedido implements Serializable {
     @Column(name = "edoPedido", length = 50) // Longitud máxima de 50
     private String edoPedido;
 
-    @ManyToOne // Relación muchos a uno con Paquete
-    @JoinColumn(name = "idPaquete")
-    private Paquete paquete;
-
+    @Column(name = "Identificador",nullable = false)
+    private int identificador;
     // Constructor por defecto
     public Pedido() {
     }
@@ -39,12 +37,12 @@ public class Pedido implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Pedido(Cliente cliente, String fecha, String observaciones, String edoPedido, Paquete paquete) {
+    public Pedido(Cliente cliente, String fecha, String observaciones, String edoPedido, int identificador) {
         this.cliente = cliente;
         this.fecha = fecha;
         this.observaciones = observaciones;
         this.edoPedido = edoPedido;
-        this.paquete = paquete;
+        this.identificador = identificador;
     }
 
     // Getters y Setters
@@ -89,11 +87,11 @@ public class Pedido implements Serializable {
         this.edoPedido = edoPedido;
     }
 
-    public Paquete getPaquete() {
-        return paquete;
+    public int getIdentificador() {
+        return identificador;
     }
 
-    public void setPaquete(Paquete paquete) {
-        this.paquete = paquete;
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
     }
 }
