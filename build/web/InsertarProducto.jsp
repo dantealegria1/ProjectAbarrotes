@@ -165,6 +165,7 @@
                                title="Fecha" type="text" value="" size="25"
                                onkeypress="return permite(event, 'num_car')"/>
                     </td>
+
                     </tr>
                     <tr>
                         <td>

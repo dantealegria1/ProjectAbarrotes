@@ -17,7 +17,7 @@
     <body>
         <h1>Portal de modificacion de datos del producto</h1>
         <% ProductoDAO productoDAO = new ProductoDAO();
-            List<Producto> listaProductos = productoDAO.obtenListaProducto();
+            List<Producto> listaProductos = productoDAO.obtenListaProducto("");
             int valor = 0;
         %>
         <form>
@@ -113,6 +113,15 @@
                                    title="Marca" type="text" value="<%= listaProductos.get(i - 1).getMarca()%>" size="25"/>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <input id="Existencias" name="existencias" placeholder="Existencias"
+                                   title="Existencias" type="text" value="<%= listaProductos.get(i-1).getExistencias() %>" size="25"/>
+                        </td>
+                    </tr>
+
+
                     <tr>
                         <td>
                             <input id="IdProveedor" name="idProveedor" placeholder="IdProveedor"

@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Beans.ClienteDAO" %>
 <%@page import="Mapeos.Cliente" %>
+<%-- <%@page import="javax.servlet.http.HttpSession" %> --%><!-- Importamos la clase HttpSession -->
 <jsp:useBean id="uname" scope="page" class="Mapeos.Cliente" />
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,7 +50,10 @@
     </center>
 </form>
 
-<% if (request.getParameter("enviar") != null) { %>
+<%
+    // Si se ha enviado el formulario
+    if (request.getParameter("enviar") != null) {
+%>
 <jsp:setProperty name="uname" property="*" />
 <%
     boolean us = false;
@@ -65,6 +69,11 @@
         if (uname.getNombre().equals(cliente.getNombre()) &&
                 uname.getPassword().equals(cliente.getPassword())) {
             us = true;
+
+            // Iniciar la sesión y guardar el ID del cliente
+
+            session.setAttribute("clienteID", cliente.getIdCliente());  // Guardar el ID del cliente en la sesión
+
 %>
 <center>
     <h3>Bienvenido <% out.println(uname.getNombre()); %></h3>

@@ -133,6 +133,30 @@ public class ProductoDAO {
         return resultado; // Retorna el resultado
     }
 
+    // Actualiza el stock del producto
+    public void actualizaStock(int idProducto, int cantidad) throws HibernateException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            Producto producto = (Producto) session.get(Producto.class, idProducto);
+
+            if (producto != null) {
+                int nuevoStock = producto.getExistencias() - cantidad; // Ajusta el stock
+                producto.setExistencias(nuevoStock); // Actualiza la cantidad en el objeto
+
+                session.update(producto); // Guarda los cambios en la base de datos
+                transaction.commit();
+            }
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            throw new HibernateException("Error al actualizar el stock del producto", e);
+        } finally {
+            session.close();
+        }
+    }
+
     // Inicia la sesión y la transacción de Hibernate
     private void iniciaOperacion() {
         sesion = HibernateUtil.getSessionFactory().openSession();
