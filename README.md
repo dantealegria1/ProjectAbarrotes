@@ -45,8 +45,8 @@ Crea una base de datos llamada `abarrotes_db` e importa las tablas necesarias. U
 
 ```sql
 USE abarrotes_db;
-USE abarrotes_db;
 
+-- Eliminar tablas si existen
 DROP TABLE IF EXISTS Pedido;
 DROP TABLE IF EXISTS Paquete;
 DROP TABLE IF EXISTS Producto;
@@ -54,9 +54,24 @@ DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Empresa;
 DROP TABLE IF EXISTS Empleado;
 
+-- Crear tablas
 CREATE TABLE Estado (
                         idEstado INT AUTO_INCREMENT PRIMARY KEY,
                         nombreEstado VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Empresa (
+                         idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
+                         nombre VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Proveedor (
+                           idProveedor INT AUTO_INCREMENT PRIMARY KEY,
+                           nombreProveedor VARCHAR(255) NOT NULL,
+                           apellPatProveedor VARCHAR(255) NOT NULL,
+                           apellMatProveedor VARCHAR(255) NOT NULL,
+                           idEmpresa INT NOT NULL,
+                           FOREIGN KEY (idEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
 CREATE TABLE Producto (
@@ -71,31 +86,6 @@ CREATE TABLE Producto (
                           fech DATE,
                           marca VARCHAR(100),
                           idProveedor INT NOT NULL
-);
-
-CREATE TABLE Proveedor (
-                           idProveedor INT AUTO_INCREMENT PRIMARY KEY,
-                           nombreProveedor VARCHAR(255) NOT NULL,
-                           apellPatProveedor VARCHAR(255) NOT NULL,
-                           apellMatProveedor VARCHAR(255) NOT NULL,
-                           idEmpresa INT NOT NULL,
-                           FOREIGN KEY (idEmpresa) REFERENCES Empresa(idEmpresa)
-);
-
-CREATE TABLE Inventario (
-                            idInventario INT AUTO_INCREMENT PRIMARY KEY,
-                            id_estado INT NOT NULL,
-                            fechaInv VARCHAR(50),
-                            entradap INT,
-                            salidap INT,
-                            saldop INT,
-                            entradac FLOAT,
-                            salidac FLOAT,
-                            saldoc FLOAT,
-                            costop FLOAT,
-                            precio FLOAT,
-                            idProducto INT NOT NULL,
-                            FOREIGN KEY (id_estado) REFERENCES Estado(idEstado)
 );
 
 CREATE TABLE Empleado (
@@ -123,13 +113,23 @@ CREATE TABLE Cliente (
                          correo VARCHAR(255) NOT NULL UNIQUE,
                          password VARCHAR(255) NOT NULL,
                          direccion TEXT NOT NULL,
-                         telefono VARCHAR(15) NOT NULL,
-                         carrito INT NOT NULL
+                         telefono VARCHAR(15) NOT NULL
 );
 
-CREATE TABLE Empresa (
-                         idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
-                         nombre VARCHAR(255) NOT NULL
+CREATE TABLE Inventario (
+                            idInventario INT AUTO_INCREMENT PRIMARY KEY,
+                            id_estado INT NOT NULL,
+                            fechaInv VARCHAR(50),
+                            entradap INT,
+                            salidap INT,
+                            saldop INT,
+                            entradac FLOAT,
+                            salidac FLOAT,
+                            saldoc FLOAT,
+                            costop FLOAT,
+                            precio FLOAT,
+                            idProducto INT NOT NULL,
+                            FOREIGN KEY (id_estado) REFERENCES Estado(idEstado)
 );
 
 CREATE TABLE Paquete (
@@ -138,7 +138,8 @@ CREATE TABLE Paquete (
                          idProducto INT NOT NULL,
                          cantidad INT,
                          FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
-                         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
+                         FOREIGN KEY (idProducto) REFERENCES Producto(idProducto),
+                         Identificador INT NOT NULL
 );
 
 CREATE TABLE Pedido (
@@ -147,12 +148,18 @@ CREATE TABLE Pedido (
                         fecha DATE NOT NULL,
                         observaciones TEXT,
                         edoPedido VARCHAR(50),
-                        idInventario INT,
-                        idPaquete INT,
                         FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente),
-                        FOREIGN KEY (idInventario) REFERENCES Inventario(idInventario),
-                        FOREIGN KEY (idPaquete) REFERENCES Paquete(idPaquete)
+                        costo INT NOT NULL,
+                        Identificador INT NOT NULL
 );
+
+-- Insertar datos de ejemplo
+INSERT INTO Estado (nombreEstado) VALUES ('Aguascalientes');
+
+INSERT INTO Empresa (nombre) VALUES ('TechStore S.A.');
+
+INSERT INTO Proveedor (nombreProveedor, apellPatProveedor, apellMatProveedor, idEmpresa)
+VALUES ('Proveedor1', 'Apellido1', 'Apellido2', 1);
 
 INSERT INTO Producto (nombreProducto, descripcion, presentacion, caducidad, precioProv, precioUni, existencias, fech, marca, idProveedor)
 VALUES ('Laptop Dell', 'Laptop con procesador i7 y 16GB RAM', 'Caja', '2025-12-01', 15000.50, 18000.99, 10, '2024-10-19', 'Dell', 1);
@@ -163,24 +170,39 @@ VALUES (1, '2024-10-19', 50, 5, 45, 100.50, 50.25, 50.25, 15000.50, 18000.99, 1)
 INSERT INTO Empleado (nombreEmpleado, password, apellPatEmpleado, apellMatEmpleado, fechaNac, rfce, salario, estadoCivil, estatus, nivelEstudio, tipoUsuario)
 VALUES ('Juan', 'pass1234', 'Perez', 'Garcia', '1990-05-12', 'PERJ900512HD3', 25000.00, 'Soltero', 'Activo', 'Licenciatura', 'Admin');
 
-INSERT INTO Cliente (nombre, apellPat, apellMat, fechaNac, rfc, correo, password, direccion, telefono, carrito)
-VALUES ('Carlos', 'Martinez', 'Lopez', '1985-11-20', 'M5112FRNS08', 'carlos.martinez@gmail.com', 'password123', 'Calle Falsa 123', '5512345678', 2);
+INSERT INTO Cliente (nombre, apellPat, apellMat, fechaNac, rfc, correo, password, direccion, telefono)
+VALUES ('Carlos', 'Martinez', 'Lopez', '1985-11-20', 'M5112FRNS08', 'carlos.martinez@gmail.com', 'password123', 'Calle Falsa 123', '5512345678');
 
-INSERT INTO Empresa (nombre)
-VALUES ('TechStore S.A.');
 
-INSERT INTO Estado (nombreEstado)
-VALUES ('Aguascalientes');
-
-INSERT INTO Paquete (idCliente, idProducto, cantidad)
-VALUES (1, 1, 2);
-
-INSERT INTO Pedido (idCliente, fecha, observaciones, edoPedido, idInventario, idPaquete)
-VALUES (1, '2024-10-19', 'Entrega a domicilio', 'Pendiente', 2, 4);
-
+-- Consultas de selección
 SELECT * FROM Cliente;
 SELECT * FROM Empleado;
-SELECT * FROM Empleado LIMIT 1;
+SELECT * FROM Producto;
+SELECT * FROM Paquete;
+SELECT * FROM Pedido;
+SHOW TABLES;
+
+-- Eliminar datos de ejemplo
+DELETE FROM Pedido;
+DELETE FROM Paquete;
+
+-- Consultas con JOIN
+SELECT
+    p.idPedido,
+    p.fecha,
+    p.edoPedido AS estado,
+    p.costo AS precio,
+    p.Identificador
+FROM
+    Pedido p
+        JOIN
+    Paquete pa ON p.Identificador = pa.Identificador
+        JOIN
+    Producto pr ON pa.idProducto = pr.idProducto
+WHERE
+    p.idCliente = ?
+GROUP BY
+    p.idPedido;
 ```
 
 Asegúrate de tener el archivo `database.properties` configurado correctamente en el directorio `src/main/resources/`. Ejemplo:
