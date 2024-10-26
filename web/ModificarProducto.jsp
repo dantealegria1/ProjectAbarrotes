@@ -93,13 +93,13 @@
         </tr>
         <tr>
             <td>
-                <input id="PProveedor" name="pproveedor" placeholder="Precio Proveedor"
+                <input id="PProveedor" name="precioProv" placeholder="Precio Proveedor"
                        title="Precio Proveedor" type="number" step="0.01" value="<%= productoSeleccionado.getPrecioProv() %>" size="25" required />
             </td>
         </tr>
         <tr>
             <td>
-                <input id="PUnitario" name="punitario" placeholder="Precio Unitario"
+                <input id="PUnitario" name="precioUni" placeholder="Precio Unitario"
                        title="Precio Unitario" type="number" step="0.01" value="<%= productoSeleccionado.getPrecioUni() %>" size="25" required />
             </td>
         </tr>
@@ -116,9 +116,12 @@
             </td>
         </tr>
         <tr>
+            <td><input id="Existencias" name="existencias" placeholder="Existencias" title="Existencias" type="text" value="<%= productoSeleccionado.getExistencias() %>" size="25"/></td>
+        </tr>
+        <tr>
             <td>
                 <input id="IdProveedor" name="idProveedor" placeholder="Id Proveedor"
-                       title="Id Proveedor" type="text" value="<%= productoSeleccionado.getIdProveedor() %>" size="25" readonly />
+                       title="Id Proveedor" type="text" value="<%= productoSeleccionado.getIdProveedor() %>" size="25" />
             </td>
         </tr>
         <tr>

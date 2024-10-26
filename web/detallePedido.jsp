@@ -1,22 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
   User: dantealegria
-  Date: 24/10/24
-  Time: 8:06 PM
+  Date: 25/10/24
+  Time: 9:29 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="Beans.PedidoDAO" %>
-<%@ page import="Mapeos.Pedido" %>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="Beans.PaqueteDAO" %>
+<%@ page import="Mapeos.Paquete" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Beans.PedidoDAO" %>
-<%@ page import="Mapeos.Pedido" %>
+<%@ page import="Mapeos.Producto" %>
+<%@ page import="Beans.ProductoDAO" %>
 <html>
 <head>
-    <title>Pedidos del Cliente</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Detalles del Paquete</title>
     <link rel="stylesheet" type="text/css" href="css.css" title="style">
     <style>
         /* Estilos generales para la página */
@@ -99,7 +98,7 @@
 </head>
 <body>
 
-<h1>Lista de Pedidos del Cliente</h1>
+<h1>Detalles del Paquete</h1>
 
 <div id="menu">
     <ul>
@@ -112,63 +111,52 @@
 </div>
 
 <%
-    Integer clienteID = (Integer) session.getAttribute("clienteID");
-    if (clienteID != null) {
-        PedidoDAO pedidoDAO = new PedidoDAO();
-        List<Pedido> pedidos = pedidoDAO.obtenlistaPedidos(clienteID);
+    String identificadorParam = request.getParameter("identificador");
+    if (identificadorParam != null) {
+        PaqueteDAO paqueteDAO = new PaqueteDAO();
+        ProductoDAO productoDAO = new ProductoDAO();
+        List<Paquete> paquetes = paqueteDAO.obtenerPaquetesPorIdentificador(Integer.parseInt(identificadorParam));
 
-        if (pedidos != null && !pedidos.isEmpty()) {
+        if (paquetes != null && !paquetes.isEmpty()) {
 %>
 <table>
     <thead>
     <tr>
-        <th>ID Pedido</th>
-        <th>Fecha</th>
-        <th>Estado</th>
-        <th>Precio</th>
-        <th>Identificador</th>
-        <th>Acciones</th>
+        <th>ID Paquete</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
     </tr>
     </thead>
     <tbody>
     <%
-        for (Pedido pedido : pedidos) {
-            Integer idPedido = pedido.getIdPedido();
-            String fecha = pedido.getFecha();
-            String estado = pedido.getEdoPedido();
-            Double precio = pedido.getCosto();
-            Integer identificador = pedido.getIdentificador();
+        for (Paquete paquete : paquetes) {
+            Producto producto = productoDAO.obtenProducto(paquete.getIdProducto());
+            String descripcion = producto != null ? producto.getNombreProducto() : "Producto no encontrado";
     %>
     <tr>
-        <td><%= idPedido %></td>
-        <td><%= fecha %></td>
-        <td><%= estado %></td>
-        <td>$<%= precio %></td>
-        <td><%= identificador %></td>
-        <td>
-            <form action="detallePedido.jsp" method="get">
-                <input type="hidden" name="identificador" value="<%= identificador %>"/>
-                <input type="submit" value="Ver Detalles"/>
-            </form>
-        </td>
+        <td><%= paquete.getIdPaquete() %></td>
+        <td><%= descripcion %></td>
+        <td><%= paquete.getCantidad() %></td>
     </tr>
     <%
-        }
+        } // Fin del for
     %>
     </tbody>
 </table>
 <%
 } else {
 %>
-<p>No se encontraron pedidos para este cliente.</p>
+<p>No se encontraron detalles para este paquete.</p>
 <%
     }
 } else {
 %>
-<p>Error: El ID del cliente no está disponible.</p>
+<p>Error: Identificador del paquete no especificado.</p>
 <%
     }
 %>
+
+<a href="Pedidos.jsp">Regresar a tus pedidos</a>
 
 </body>
 </html>

@@ -43,14 +43,12 @@
     ClienteDAO clienteDAO = new ClienteDAO();
     Integer clienteID = (Integer) session.getAttribute("clienteID");
 
-    // Inicializar el carrito si no está en sesión
     if (session.getAttribute("carrito") == null) {
         session.setAttribute("carrito", new HashMap<Producto, Integer>());
     }
 
     Map<Producto, Integer> carrito = (Map<Producto, Integer>) session.getAttribute("carrito");
 
-    // Verificar si se seleccionaron productos para añadir al carrito
     if (request.getParameter("comprar") != null) {
         String[] seleccionados = request.getParameterValues("productosSeleccionados");
 
@@ -59,7 +57,6 @@
                 Producto p = productoDAO.obtenProducto(Integer.parseInt(idProducto));
                 int cantidad = Integer.parseInt(request.getParameter("cantidad_" + idProducto));
 
-                // Actualizar existencias en la sesión
                 for (Producto producto : listaProductos) {
                     if (producto.getIdProducto() == p.getIdProducto()) {
                         int nuevasExistencias = producto.getExistencias() - cantidad;
@@ -67,21 +64,17 @@
                     }
                 }
 
-                // Añadir producto al carrito
                 carrito.put(p, cantidad);
             }
         }
         session.setAttribute("carrito", carrito);
     }
 
-    // Lógica para limpiar el carrito
     if (request.getParameter("limpiarCarrito") != null) {
-        // Devolver existencias de los productos al inventario
         for (Map.Entry<Producto, Integer> entry : carrito.entrySet()) {
             Producto prod = entry.getKey();
             int cantidadCarrito = entry.getValue();
 
-            // Devolver existencias al stock original
             for (Producto producto : listaProductos) {
                 if (producto.getIdProducto() == prod.getIdProducto()) {
                     int nuevasExistencias = producto.getExistencias() + cantidadCarrito;
@@ -90,7 +83,6 @@
             }
         }
 
-        // Limpiar el carrito
         carrito.clear();
         session.setAttribute("carrito", carrito);
     }
@@ -152,15 +144,26 @@
             <td><%= prod.getPresentacion() %></td>
             <td><%= prod.getCaducidad() %></td>
             <td><%= prod.getPrecioUni() %></td>
-            <td><%= prod.getExistencias() %></td>
+            <td><%= (prod.getExistencias() != null ? prod.getExistencias() : "No disponible") %></td>
             <td>
-                <select name="cantidad_<%= prod.getIdProducto() %>" <%= (prod.getExistencias() == 0) ? "disabled" : "" %>>
-                    <% for (int i = 1; i <= prod.getExistencias(); i++) { %>
+                <select name="cantidad_<%= prod.getIdProducto() %>"
+                        <%= (prod.getExistencias() != null && prod.getExistencias() == 0) ? "disabled" : "" %>>
+                    <%
+                        if (prod.getExistencias() != null && prod.getExistencias() > 0) {
+                            for (int i = 1; i <= prod.getExistencias(); i++) {
+                    %>
                     <option value="<%= i %>"><%= i %></option>
-                    <% } %>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <option value="0" disabled>No disponible</option>
+                    <%
+                        }
+                    %>
                 </select>
             </td>
-            <td><input type="checkbox" name="productosSeleccionados" value="<%= prod.getIdProducto() %>" <%= (prod.getExistencias() == 0) ? "disabled" : "" %>></td>
+            <td><input type="checkbox" name="productosSeleccionados" value="<%= prod.getIdProducto() %>" <%= (prod.getExistencias() == null || prod.getExistencias() == 0) ? "disabled" : "" %>></td>
         </tr>
         <% } %>
         </tbody>
@@ -172,6 +175,6 @@
 <form action="GuardarPaquete.jsp" method="post">
     <input type="submit" value="Confirmar Compra" />
 </form>
-
+<a href="Pedidos.jsp">Ver tus pedidos</a>
 </body>
 </html>

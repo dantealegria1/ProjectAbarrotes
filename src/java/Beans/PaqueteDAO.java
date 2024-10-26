@@ -96,4 +96,24 @@ public class PaqueteDAO {
         return listaPaquetes;
     }
 
+    public List<Paquete> obtenerPaquetesPorIdentificador(int identificador) throws HibernateException {
+        List<Paquete> listaPaquetes = null;
+        try {
+            iniciaOperacion();
+            listaPaquetes = sesion.createQuery("from Paquete WHERE Identificador = :identificador")
+                    .setParameter("identificador", identificador)
+                    .list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return listaPaquetes;
+    }
 }
